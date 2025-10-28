@@ -1,5 +1,5 @@
 import { SiX, SiDiscord, SiLinkedin, SiYoutube } from "react-icons/si";
-
+import logo from "@assets/generated_images/favicon.gif";
 export function Footer() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -13,6 +13,7 @@ export function Footer() {
       <div className="container mx-auto px-4 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
+              <img src={logo} alt="Logo" className="w-20 h-20 object-contain" />
             <div className="font-display text-xl font-bold tracking-tight mb-4">
               <span className="text-primary">PIXEL</span>
               <span className="text-foreground">BOUND</span>

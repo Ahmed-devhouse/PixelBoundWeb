@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu } from "lucide-react";
 import { useState } from "react";
-
+import logo from "@assets/generated_images/favicon.gif";
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -19,6 +19,7 @@ export function Header() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
+            <img src={logo} alt="Logo" className="w-14 h-14 object-contain" />
             <div className="font-display text-xl font-bold tracking-tight">
               <span className="text-primary">PIXEL</span>
               <span className="text-foreground">BOUND</span>

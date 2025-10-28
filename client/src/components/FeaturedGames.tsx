@@ -6,28 +6,28 @@ import puzzleGame from "@assets/generated_images/Puzzle_adventure_game_screensho
 
 const games = [
   {
-    title: "Chronicles of Eternity",
+    title: "Game 1",
     description: "An epic fantasy RPG with stunning visuals, deep character customization, and a rich storyline that spans multiple realms.",
     image: fantasyGame,
     genre: "RPG",
     platform: "PC/Console",
   },
   {
-    title: "Void Runners",
+    title: "Game 2",
     description: "Fast-paced space combat with strategic gameplay. Command your fleet through intense battles across the galaxy.",
     image: spaceGame,
     genre: "Space Combat",
     platform: "PC/Console",
   },
   {
-    title: "Neon Rush",
+    title: "Game 3",
     description: "High-octane cyberpunk racing through neon-lit streets. Customize your ride and dominate the underground racing scene.",
     image: racingGame,
     genre: "Racing",
     platform: "PC/Mobile",
   },
   {
-    title: "Mystic Gardens",
+    title: "Game 4",
     description: "A charming puzzle adventure set in a magical world. Solve intricate puzzles and uncover ancient secrets.",
     image: puzzleGame,
     genre: "Puzzle",

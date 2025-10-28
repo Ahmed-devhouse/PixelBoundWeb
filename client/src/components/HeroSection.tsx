@@ -28,7 +28,7 @@ export function HeroSection() {
           GAMING EXPERIENCES
         </h1>
         <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Pixel Bound Games brings your vision to life with cutting-edge technology and creative excellence
+          Game khel lo hmari, paison ki bht zaroorat he...
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button
