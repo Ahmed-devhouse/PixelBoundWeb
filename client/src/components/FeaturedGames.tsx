@@ -5,10 +5,21 @@ import feature_game2 from "@assets/games/game2.png";
 import feature_game3 from "@assets/games/game3.png";
 import feature_game4 from "@assets/games/game4.png";
 import feature_game5 from "@assets/games/game5.png";
+import feature_game6 from "@assets/games/game6.png";
 import googlePlay from "@assets/icons/google-play-badge.png";
 import appStore from "@assets/icons/app-store-badge.png";
 
 const games = [
+  {
+    title: "Viral Match 3D",
+    description: "Help Vivi get viral!",
+    image: feature_game6,
+    genre: "Puzzle/Building",
+    platform: "Mobile",
+    googlePlayUrl:
+      "https://play.google.com/store/apps/details?id=com.ScrewIt3D.screwmaster.screwit&hl=en",
+    appStoreUrl: "https://apps.apple.com/app/id1234567890",
+  },
   {
     title: "Screw it 3D",
     description: "Best sort and match puzzle game!",
@@ -21,8 +32,7 @@ const games = [
   },
   {
     title: "Slime 3D : Hexagon Merge Color",
-    description:
-      "🎮 Sort and Merge Hexagon tiles!",
+    description: "🎮 Sort and Merge Hexagon tiles!",
     image: feature_game2,
     genre: "Tiles Color Match / Idle Clicker",
     platform: "Mobile",
@@ -32,8 +42,7 @@ const games = [
   },
   {
     title: "Real Bike Driving City 3D",
-    description:
-      "The Ultimate Motorcycle Racing 3D Game 🏁",
+    description: "The Ultimate Motorcycle Racing 3D Game 🏁",
     image: feature_game3,
     genre: "Racing",
     platform: "Mobile",
@@ -53,8 +62,7 @@ const games = [
   },
   {
     title: "Seat Color Sort Jam 3D Puzzle",
-    description:
-      "The Ultimate 3D Color Puzzle Game!",
+    description: "The Ultimate 3D Color Puzzle Game!",
     image: feature_game5,
     genre: "Puzzle",
     platform: "Mobile",
@@ -98,7 +106,8 @@ export function FeaturedGames() {
             Our <span className="text-primary">GAMES</span>
           </h2>
           <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore our portfolio of award-winning titles that have captivated players worldwide
+            Explore our portfolio of award-winning titles that have captivated
+            players worldwide
           </p>
         </motion.div>
 
@@ -151,6 +160,76 @@ export function FeaturedGames() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* 🎥 Game Trailer Section */}
+        <motion.div
+          className="mt-24 text-center"
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          <h3 className="font-display text-3xl lg:text-4xl font-bold mb-4">
+            Watch Our <span className="text-primary">Game Trailers</span>
+          </h3>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Dive into the excitement with our featured trailers showcasing the thrill, puzzles, and adventure.
+          </p>
+
+          {/* 3-Video Showcase */}
+          <div className="relative flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8">
+            {/* Left Small Video */}
+            <motion.div
+              className="w-[85%] md:w-[25%] aspect-video rounded-2xl overflow-hidden shadow-xl opacity-70 hover:opacity-100 transition-all duration-500"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 120 }}
+            >
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/Hgm5Wr7Cu50?si=DuoPup9vs7XK9Cp6"
+                title="Trailer 1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </motion.div>
+
+            {/* Center Main Video */}
+            <motion.div
+              className="w-[95%] md:w-[40%] aspect-video rounded-2xl overflow-hidden shadow-2xl z-10"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 120 }}
+            >
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/aS-fkHq0WE8?si=vK6B-kJGQBca6mv7"
+                title="Main Trailer"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </motion.div>
+
+            {/* Right Small Video */}
+            <motion.div
+              className="w-[85%] md:w-[25%] aspect-video rounded-2xl overflow-hidden shadow-xl opacity-70 hover:opacity-100 transition-all duration-500"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 120 }}
+            >
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/4vMclFwi0bc?si=6q_X1OhYmma-xef9"
+                title="Trailer 3"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </motion.div>
+          </div>
+
+          {/* Optional Gradient Glow Effect */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/2 left-0 w-full h-[60%] bg-gradient-to-t from-background via-transparent to-transparent opacity-50"></div>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

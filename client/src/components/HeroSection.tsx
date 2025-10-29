@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import featuredGame from "@assets/featured_game/feature.png";
-import heroBg from "@assets/generated_images/Game_development_studio_workspace_3c9fdbad.png";
+import heroBg from "@assets/bg/bg.png";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
@@ -97,8 +97,8 @@ export function HeroSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent" />
             <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-xl sm:text-2xl font-bold">Screw it 3D</h3>
-              <p className="text-sm sm:text-base text-white/80">Best sort and match puzzle game</p>
+              <h3 className="text-xl sm:text-2xl font-bold">Viral Match 3D</h3>
+              <p className="text-sm sm:text-base text-white/80">Featured game!</p>
             </div>
           </div>
         </motion.div>

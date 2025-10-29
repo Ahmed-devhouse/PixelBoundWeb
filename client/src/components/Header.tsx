@@ -30,6 +30,10 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleViralMatchClick = () => {
+    window.location.href = "/viral-match"; // open in same tab
+  };
+
   return (
     <header
       className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
@@ -83,6 +87,14 @@ export function Header() {
           >
             Contact
           </button>
+
+          {/* 🟣 Viral Match Button */}
+          <Button
+            onClick={handleViralMatchClick}
+            className="bg-primary text-white hover:bg-primary/90 rounded-full px-4 py-1 text-sm font-semibold transition"
+          >
+            Viral Match
+          </Button>
         </nav>
 
         {/* Right Side Buttons */}
@@ -133,11 +145,13 @@ export function Header() {
             >
               Contact
             </button>
+
+            {/* 🟣 Viral Match Button in Mobile Menu */}
             <Button
-              className="w-full mt-2"
-              onClick={() => scrollToSection("contact")}
+              className="w-full mt-2 bg-primary text-white hover:bg-primary/90"
+              onClick={handleViralMatchClick}
             >
-              Get Started
+              Viral Match
             </Button>
           </nav>
         </div>
