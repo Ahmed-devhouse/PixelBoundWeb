@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import heroImage from "@assets/generated_images/Game_development_studio_workspace_3c9fdbad.png";
+import featuredGame from "@assets/featured_game/feature.png";
+import heroBg from "@assets/generated_images/Game_development_studio_workspace_3c9fdbad.png";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
@@ -12,111 +13,96 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Subtle Zoom */}
+      {/* Background */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ backgroundImage: `url(${heroBg})` }}
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
         transition={{ duration: 10, ease: "easeOut" }}
       />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-background/90" />
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-background" />
+      {/* Diagonal Split (Hidden on small screens) */}
+      <div className="absolute inset-0 hidden lg:block clip-diagonal bg-background/40 backdrop-blur-md" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center">
-        {/* Animated Title */}
-        <motion.h1
-          className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight mb-6 text-white"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          WE CRAFT
-          <br />
-          <motion.span
-            className="text-primary inline-block"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-          >
-            UNFORGETTABLE
-          </motion.span>
-          <br />
-          GAMING EXPERIENCES
-        </motion.h1>
-
-        {/* Animated Subtitle */}
-        <motion.p
-          className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
-        >
-          Game khel lo hmari, Hassan ne 3 din se khana ni khaya...
-        </motion.p>
-
-        {/* Buttons with Staggered Animation */}
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center w-full container mx-auto px-6 sm:px-8 lg:px-12 py-20 gap-16 lg:gap-24">
+        {/* Left Side — Text & Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.2,
-                delayChildren: 1.2,
-              },
-            },
-          }}
+          className="text-center lg:text-left text-white space-y-6 max-w-2xl mx-auto lg:mx-0"
+          initial={{ opacity: 0, x: -80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
         >
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-          >
-            <Button
-              size="lg"
-              className="text-base font-semibold px-8"
-              onClick={() => scrollToSection("games")}
-              data-testid="button-view-games"
-            >
-              View Our Games
-            </Button>
-          </motion.div>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight break-words">
+            WE CRAFT
+            <br />
+            <span className="text-primary">UNFORGETTABLE</span>
+            <br />
+            GAMING EXPERIENCES
+          </h1>
 
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-          >
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-base font-semibold px-8 backdrop-blur-sm bg-white/10 border-white/20 text-white hover:bg-white/20"
-              onClick={() => scrollToSection("about")}
-              data-testid="button-learn-more"
+          <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
+            Step into worlds we’ve built with passion and precision — where every pixel tells a story.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
             >
-              Learn About Us
-            </Button>
-          </motion.div>
+              <Button
+                size="lg"
+                className="text-base font-semibold px-8"
+                onClick={() => scrollToSection('games')}
+              >
+                View Our Games
+              </Button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-base font-semibold px-8 backdrop-blur-sm bg-white/10 border-white/20 text-white hover:bg-white/20"
+                onClick={() => scrollToSection('about')}
+              >
+                Learn About Us
+              </Button>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Right Side — Featured Game */}
+        <motion.div
+          className="relative flex justify-center lg:justify-end items-center w-full"
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: 'easeOut', delay: 0.5 }}
+        >
+          <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-xl rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-[4/3] sm:aspect-[16/9]">
+            <motion.img
+              src={featuredGame}
+              alt="Featured Game"
+              className="w-full h-full object-cover"
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 6, ease: 'easeOut' }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent" />
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-xl sm:text-2xl font-bold">Screw it 3D</h3>
+              <p className="text-sm sm:text-base text-white/80">Best sort and match puzzle game</p>
+            </div>
+          </div>
         </motion.div>
       </div>
-
-      {/* Floating Particles (Subtle Ambient Animation) */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.2 }}
-        transition={{ delay: 1.5, duration: 2 }}
-      >
-        <div className="absolute w-2 h-2 bg-primary rounded-full top-1/4 left-1/3 animate-float" />
-        <div className="absolute w-3 h-3 bg-white rounded-full bottom-1/3 right-1/4 animate-float-delayed" />
-      </motion.div>
     </section>
   );
 }

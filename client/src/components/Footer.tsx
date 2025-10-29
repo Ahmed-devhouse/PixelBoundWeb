@@ -38,7 +38,7 @@ export function Footer() {
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="link-footer-capabilities"
               >
-                Capabilities
+                Career
               </button>
               <button
                 onClick={() => scrollToSection("about")}
@@ -58,12 +58,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-bold mb-4">Services</h3>
+            <h3 className="font-bold mb-4"></h3>
             <div className="space-y-2 text-sm text-muted-foreground">
-              <p>Game Design</p>
-              <p>Development</p>
-              <p>Art & Animation</p>
-              <p>QA & Testing</p>
+ 
             </div>
           </div>
 

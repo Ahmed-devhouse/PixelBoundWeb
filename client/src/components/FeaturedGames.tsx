@@ -1,51 +1,65 @@
 import { motion } from "framer-motion";
 import { GameCard } from "./GameCard";
-import fantasyGame from "@assets/generated_images/Fantasy_RPG_game_screenshot_2cfcf587.png";
-import spaceGame from "@assets/generated_images/Space_combat_game_screenshot_5eaf1e78.png";
-import racingGame from "@assets/generated_images/Cyberpunk_racing_game_screenshot_fe78e07f.png";
-import puzzleGame from "@assets/generated_images/Puzzle_adventure_game_screenshot_d53b3d29.png";
+import feature_game1 from "@assets/games/game1.png";
+import feature_game2 from "@assets/games/game2.png";
+import feature_game3 from "@assets/games/game3.png";
+import feature_game4 from "@assets/games/game4.png";
+import feature_game5 from "@assets/games/game5.png";
 import googlePlay from "@assets/icons/google-play-badge.png";
 import appStore from "@assets/icons/app-store-badge.png";
 
 const games = [
   {
-    title: "Game 1",
-    description:
-      "An epic fantasy RPG with stunning visuals, deep character customization, and a rich storyline that spans multiple realms.",
-    image: fantasyGame,
-    genre: "RPG",
-    platform: "PC/Console",
-    googlePlayUrl: "https://play.google.com/store/apps/details?id=com.example.game1",
+    title: "Screw it 3D",
+    description: "Best sort and match puzzle game!",
+    image: feature_game1,
+    genre: "Puzzle",
+    platform: "Mobile",
+    googlePlayUrl:
+      "https://play.google.com/store/apps/details?id=com.ScrewIt3D.screwmaster.screwit&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id1234567890",
   },
   {
-    title: "Game 2",
+    title: "Slime 3D : Hexagon Merge Color",
     description:
-      "Fast-paced space combat with strategic gameplay. Command your fleet through intense battles across the galaxy.",
-    image: spaceGame,
-    genre: "Space Combat",
-    platform: "PC/Console",
-    googlePlayUrl: "https://play.google.com/store/apps/details?id=com.example.game2",
+      "🎮 Sort and Merge Hexagon tiles!",
+    image: feature_game2,
+    genre: "Tiles Color Match / Idle Clicker",
+    platform: "Mobile",
+    googlePlayUrl:
+      "https://play.google.com/store/apps/details?id=slime.hexagon.colorsortgames&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id2345678901",
   },
   {
-    title: "Game 3",
+    title: "Real Bike Driving City 3D",
     description:
-      "High-octane cyberpunk racing through neon-lit streets. Customize your ride and dominate the underground racing scene.",
-    image: racingGame,
+      "The Ultimate Motorcycle Racing 3D Game 🏁",
+    image: feature_game3,
     genre: "Racing",
-    platform: "PC/Mobile",
-    googlePlayUrl: "https://play.google.com/store/apps/details?id=com.example.game3",
+    platform: "Mobile",
+    googlePlayUrl:
+      "https://play.google.com/store/apps/details?id=com.wodh.real.moto.race.world.racing.world&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id3456789012",
   },
   {
-    title: "Game 4",
-    description:
-      "A charming puzzle adventure set in a magical world. Solve intricate puzzles and uncover ancient secrets.",
-    image: puzzleGame,
+    title: "Luminara : Puzzle Adventure",
+    description: "A Journey of Light.",
+    image: feature_game4,
     genre: "Puzzle",
-    platform: "All Platforms",
-    googlePlayUrl: "https://play.google.com/store/apps/details?id=com.example.game4",
+    platform: "Mobile",
+    googlePlayUrl:
+      "https://play.google.com/store/apps/details?id=com.WODH.Luminara.AJourneyofLight&hl=en",
+    appStoreUrl: "https://apps.apple.com/app/id4567890123",
+  },
+  {
+    title: "Seat Color Sort Jam 3D Puzzle",
+    description:
+      "The Ultimate 3D Color Puzzle Game!",
+    image: feature_game5,
+    genre: "Puzzle",
+    platform: "Mobile",
+    googlePlayUrl:
+      "https://play.google.com/store/apps/details?id=com.WODH.SeatColorSortJam&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id4567890123",
   },
 ];
@@ -72,6 +86,7 @@ export function FeaturedGames() {
   return (
     <section id="games" className="py-16 md:py-24 lg:py-32 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
+        {/* Section Header */}
         <motion.div
           className="text-center mb-12 lg:mb-16"
           initial={{ opacity: 0, y: -40 }}
@@ -80,15 +95,16 @@ export function FeaturedGames() {
           viewport={{ once: true }}
         >
           <h2 className="font-display text-4xl lg:text-5xl font-bold mb-4">
-            FEATURED <span className="text-primary">GAMES</span>
+            Our <span className="text-primary">GAMES</span>
           </h2>
           <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
             Explore our portfolio of award-winning titles that have captivated players worldwide
           </p>
         </motion.div>
 
+        {/* Games Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -105,7 +121,7 @@ export function FeaturedGames() {
                 <GameCard {...game} />
 
                 {/* Store Buttons in Bottom Right Corner */}
-                <div className="absolute bottom-4 right-4 flex gap-2">
+                <div className="absolute bottom-4 right-4 flex flex-col sm:flex-row gap-2">
                   <a
                     href={game.googlePlayUrl}
                     target="_blank"

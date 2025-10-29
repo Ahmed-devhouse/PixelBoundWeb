@@ -119,7 +119,7 @@ export function Header() {
               onClick={() => scrollToSection("capabilities")}
               className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
             >
-              Capabilities
+              Career
             </button>
             <button
               onClick={() => scrollToSection("about")}
