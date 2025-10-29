@@ -28,7 +28,7 @@ export function HeroSection() {
           GAMING EXPERIENCES
         </h1>
         <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Game khel lo hmari, paison ki bht zaroorat he...
+          Game khel lo hmari, Hassan ne 3 din se khana ni kahaya...
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button

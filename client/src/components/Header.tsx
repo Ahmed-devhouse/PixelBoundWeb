@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "@assets/generated_images/favicon.gif";
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -14,106 +16,106 @@ export function Header() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="Logo" className="w-14 h-14 object-contain" />
-            <div className="font-display text-xl font-bold tracking-tight">
-              <span className="text-primary">PIXEL</span>
-              <span className="text-foreground">BOUND</span>
-            </div>
+    <header
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/80 shadow-lg backdrop-blur-xl"
+          : "bg-background/60 shadow-md backdrop-blur-md"
+      } rounded-full border border-border/40 px-6 py-2 w-[90%] max-w-5xl`}
+    >
+      <div className="flex items-center justify-between">
+        {/* Logo and Title */}
+        <div className="flex items-center gap-2">
+          <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
+          <div className="font-display text-lg font-bold tracking-tight">
+            <span className="text-primary">PIXEL</span>
+            <span className="text-foreground">BOUND</span>
           </div>
+        </div>
 
-          <nav className="hidden md:flex items-center gap-6">
-            <button
-              onClick={() => scrollToSection("games")}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="link-games"
-            >
-              Games
-            </button>
-            <button
-              onClick={() => scrollToSection("capabilities")}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="link-capabilities"
-            >
-              Capabilities
-            </button>
-            <button
-              onClick={() => scrollToSection("about")}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="link-about"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="link-contact"
-            >
-              Contact
-            </button>
-          </nav>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
+          <button
+            onClick={() => scrollToSection("games")}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Games
+          </button>
+          <button
+            onClick={() => scrollToSection("capabilities")}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Capabilities
+          </button>
+          <button
+            onClick={() => scrollToSection("about")}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            About
+          </button>
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Contact
+          </button>
+        </nav>
 
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <Button
-              className="hidden md:flex"
-              onClick={() => scrollToSection("contact")}
-              data-testid="button-get-started"
-            >
-              Get Started
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              data-testid="button-mobile-menu"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-          </div>
+        {/* Right Side Buttons */}
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+   
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t bg-background">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
+        <div className="absolute top-full mt-2 left-0 right-0 rounded-2xl border bg-background/95 backdrop-blur-xl shadow-lg p-4 md:hidden">
+          <nav className="flex flex-col gap-2">
             <button
               onClick={() => scrollToSection("games")}
-              className="text-left px-4 py-2 text-sm font-medium hover-elevate active-elevate-2 rounded-md"
-              data-testid="link-mobile-games"
+              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
             >
               Games
             </button>
             <button
               onClick={() => scrollToSection("capabilities")}
-              className="text-left px-4 py-2 text-sm font-medium hover-elevate active-elevate-2 rounded-md"
-              data-testid="link-mobile-capabilities"
+              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
             >
               Capabilities
             </button>
             <button
               onClick={() => scrollToSection("about")}
-              className="text-left px-4 py-2 text-sm font-medium hover-elevate active-elevate-2 rounded-md"
-              data-testid="link-mobile-about"
+              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
             >
               About
             </button>
             <button
               onClick={() => scrollToSection("contact")}
-              className="text-left px-4 py-2 text-sm font-medium hover-elevate active-elevate-2 rounded-md"
-              data-testid="link-mobile-contact"
+              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
             >
               Contact
             </button>
             <Button
               className="w-full mt-2"
               onClick={() => scrollToSection("contact")}
-              data-testid="button-mobile-get-started"
             >
               Get Started
             </Button>
