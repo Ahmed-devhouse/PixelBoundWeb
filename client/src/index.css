@@ -20,6 +20,12 @@
 .animate-float-delayed {
   animation: float 6s ease-in-out infinite 1s;
 }
+@font-face {
+  font-family: "Retrokia Caps";
+  src: url("/src/assets/fonts/RetrokiaCaps.ttf") format("truetype"); 
+  font-weight: normal;
+  font-style: normal;
+}
 
 /* LIGHT MODE */
 :root {

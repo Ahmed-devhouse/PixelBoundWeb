@@ -14,7 +14,6 @@ export function Header() {
       setMobileMenuOpen(false);
       return;
     }
-
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -23,9 +22,7 @@ export function Header() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -49,9 +46,9 @@ export function Header() {
           onClick={() => scrollToSection("top")}
         >
           <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
-          <div className="font-display text-lg font-bold tracking-tight">
-            <span className="text-primary">PIXEL</span>
-            <span className="text-foreground">BOUND</span>
+          <div className="font-retrokia text-lg font-bold tracking-wide uppercase">
+            <span className="text-primary">Viral</span>{" "}
+            <span className="text-foreground">Match</span>
           </div>
         </div>
 
@@ -63,40 +60,14 @@ export function Header() {
           >
             Home
           </button>
-          <button
-            onClick={() => scrollToSection("games")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Games
-          </button>
-          <button
-            onClick={() => scrollToSection("capabilities")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Career
-          </button>
-          <button
-            onClick={() => scrollToSection("about")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            About
-          </button>
-          <button
-            onClick={() => scrollToSection("contact")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Contact
-          </button>
 
-          {/* 🟣 Viral Match Button */}
-<Button
-  onClick={handleViralMatchClick}
-  className="bg-sky-400 text-white border-2 border-sky-400 hover:bg-sky-500 hover:border-sky-500 rounded-full px-4 py-1 text-sm font-semibold transition"
-
->
-  Viral Match
-</Button>
-
+          {/* Light Blue Button */}
+          <Button
+            onClick={handleViralMatchClick}
+            className="bg-sky-400 text-white border-2 border-sky-400 hover:bg-sky-500 hover:border-sky-500 rounded-full px-4 py-1 text-sm font-semibold transition"
+          >
+            Viral Match
+          </Button>
         </nav>
 
         {/* Right Side Buttons */}
@@ -123,34 +94,8 @@ export function Header() {
             >
               Home
             </button>
-            <button
-              onClick={() => scrollToSection("games")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              Games
-            </button>
-            <button
-              onClick={() => scrollToSection("capabilities")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              Career
-            </button>
-            <button
-              onClick={() => scrollToSection("about")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              Contact
-            </button>
-
-            {/* 🟣 Viral Match Button in Mobile Menu */}
             <Button
-              className="w-full mt-2 bg-primary text-white hover:bg-primary/90"
+              className="w-full mt-2 bg-sky-400 text-white hover:bg-sky-500 border-2 border-sky-400 hover:border-sky-500 rounded-full"
               onClick={handleViralMatchClick}
             >
               Viral Match
