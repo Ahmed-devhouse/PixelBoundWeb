@@ -35,7 +35,7 @@ export function HeroSection() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: 'easeOut' }}
         >
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight break-words">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-bold leading-tight break-words">
             WE CRAFT
             <br />
             <span className="text-primary">UNFORGETTABLE</span>
