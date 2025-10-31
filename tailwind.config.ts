@@ -88,6 +88,7 @@ export default {
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
         display: ["var(--font-display)"],
+        montserrat: ['"Montserrat"', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

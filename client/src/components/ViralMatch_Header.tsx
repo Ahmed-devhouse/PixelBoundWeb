@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
-import logo from "@assets/generated_images/favicon.gif";
+import { motion, AnimatePresence } from "framer-motion";
+import logo from "@assets/vivi/icongif.gif";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,87 +23,170 @@ export function Header() {
   };
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleViralMatchClick = () => {
-    window.location.href = "/viral-match"; // open in same tab
+  const handlePolicyClick = () => {
+    window.open("/privacy-policy-ViralMatch", "_blank", "noopener,noreferrer");
+  };
+
+  const handlePlayOnlineClick = () => {
+    window.location.href = "/privacy-policy-ViralMatch";
   };
 
   return (
-    <header
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
+    // Use left:0 right:0 with mx-auto and max-w to avoid overflow issues
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+      className={`fixed top-4 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 shadow-lg backdrop-blur-xl"
-          : "bg-background/60 shadow-md backdrop-blur-md"
-      } rounded-full border border-border/40 px-6 py-2 w-[90%] max-w-5xl`}
+          ? "bg-black/72 shadow-lg backdrop-blur-2xl border border-sky-400/20"
+          : "bg-black/40 shadow-md backdrop-blur-lg border border-white/10"
+      }`}
+      style={{ pointerEvents: "auto" }}
     >
-      <div className="flex items-center justify-between">
-        {/* Logo and Title */}
-        <div
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => scrollToSection("top")}
-        >
-          <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
-          <div className="font-retrokia text-lg font-bold tracking-wide uppercase">
-            <span className="text-primary">Viral</span>{" "}
-            <span className="text-foreground">Match</span>
+      {/* Center container that strictly respects viewport width + padding */}
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-4 py-2">
+          {/* Logo Section */}
+          <motion.div
+            className="flex items-center gap-2 cursor-pointer flex-shrink-0"
+            onClick={() => scrollToSection("top")}
+            animate={{ y: [0, -2, 0] }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+            />
+            <div className="font-montserrat text-sm sm:text-base font-extrabold tracking-wider uppercase whitespace-nowrap">
+              <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-sky-400 bg-clip-text text-transparent">
+                Viral
+              </span>{" "}
+              <span className="text-white">Match</span>
+            </div>
+          </motion.div>
+
+          {/* Navigation + action area (allows wrapping) */}
+          <div className="flex items-center gap-3 ml-2 flex-1 justify-end">
+            {/* Desktop Navigation - hidden on small screens */}
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 flex-shrink-0">
+ 
+              <button
+                onClick={()=>scrollToSection("top")}
+                className="relative text-white/80 hover:text-white font-semibold text-sm"
+              >
+                Home
+                <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-pink-400 rounded-full scale-x-0 origin-left transition-transform duration-200" />
+              </button>
+              <button
+                onClick={()=>scrollToSection("story")}
+                className="relative text-white/80 hover:text-white font-semibold text-sm"
+              >
+                Story
+                <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-pink-400 rounded-full scale-x-0 origin-left transition-transform duration-200" />
+              </button>
+              <button
+                onClick={()=>scrollToSection("games")}
+                className="relative text-white/80 hover:text-white font-semibold text-sm"
+              >
+                Games
+                <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-pink-400 rounded-full scale-x-0 origin-left transition-transform duration-200" />
+              </button>
+
+              <button
+                onClick={handlePolicyClick}
+                className="relative text-white/80 hover:text-white font-semibold text-sm"
+              >
+                Privacy Policy
+                <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-pink-400 rounded-full scale-x-0 origin-left transition-transform duration-200" />
+              </button>
+
+              <Button
+                onClick={handlePlayOnlineClick}
+                className="bg-gradient-to-r from-sky-400 to-pink-400 text-white font-bold rounded-full px-4 py-2 text-sm hover:shadow-[0_0_16px_rgba(56,189,248,0.55)] transition-transform hover:scale-105 border-0"
+              >
+                Play Online
+              </Button>
+            </nav>
+
+            {/* Right controls - theme + mobile menu */}
+            <div className="flex items-center gap-2">
+              
+              <Button
+                variant="ghost"
+                size="icon"
+                className="lg:hidden text-white"
+                onClick={() => setMobileMenuOpen((s) => !s)}
+              >
+                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          <button
-            onClick={() => scrollToSection("top")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Home
-          </button>
+        {/* Mobile Menu - constrained inset-x so it never overflows */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.22 }}
+              className="relative"
+            >
+              <div
+                // use inset-x padding consistent with container px to avoid overflow
+                className="absolute left-4 right-4 mt-3 rounded-3xl border border-white/10 bg-black/95 backdrop-blur-xl shadow-lg p-4 lg:hidden"
+              >
+                <nav className="flex flex-col gap-3 text-center">
+                <button
+                onClick={()=>scrollToSection("top")}
+                className="relative text-white/80 hover:text-white font-semibold text-sm"
+              >
+                Home
+                <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-pink-400 rounded-full scale-x-0 origin-left transition-transform duration-200" />
+              </button>
+              <button
+                onClick={()=>scrollToSection("story")}
+                className="relative text-white/80 hover:text-white font-semibold text-sm"
+              >
+                Story
+                <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-pink-400 rounded-full scale-x-0 origin-left transition-transform duration-200" />
+              </button>
+              <button
+                onClick={()=>scrollToSection("games")}
+                className="relative text-white/80 hover:text-white font-semibold text-sm"
+              >
+                Games
+                <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-pink-400 rounded-full scale-x-0 origin-left transition-transform duration-200" />
+              </button>
 
-          {/* Light Blue Button */}
-          <Button
-            onClick={handleViralMatchClick}
-            className="bg-sky-400 text-white border-2 border-sky-400 hover:bg-sky-500 hover:border-sky-500 rounded-full px-4 py-1 text-sm font-semibold transition"
-          >
-            Viral Match
-          </Button>
-        </nav>
 
-        {/* Right Side Buttons */}
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <Menu className="h-5 w-5" />
-          </Button>
-        </div>
+                  <button
+                    onClick={handlePolicyClick}
+                    className="px-4 py-2 text-white/80 hover:text-white font-medium rounded-lg"
+                  >
+                    Privacy Policy
+                  </button>
+
+                  <Button
+                    className="w-full mt-2 bg-gradient-to-r from-sky-400 to-pink-400 text-white font-bold rounded-full py-2 hover:shadow-[0_0_12px_rgba(56,189,248,0.55)]"
+                    onClick={handlePlayOnlineClick}
+                  >
+                    Play Online
+                  </Button>
+                </nav>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="absolute top-full mt-2 left-0 right-0 rounded-2xl border bg-background/95 backdrop-blur-xl shadow-lg p-4 md:hidden">
-          <nav className="flex flex-col gap-2">
-            <button
-              onClick={() => scrollToSection("top")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              Home
-            </button>
-            <Button
-              className="w-full mt-2 bg-sky-400 text-white hover:bg-sky-500 border-2 border-sky-400 hover:border-sky-500 rounded-full"
-              onClick={handleViralMatchClick}
-            >
-              Viral Match
-            </Button>
-          </nav>
-        </div>
-      )}
-    </header>
+    </motion.header>
   );
 }

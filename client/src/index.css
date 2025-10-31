@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -25,6 +27,19 @@
   src: url("/src/assets/fonts/RetrokiaCaps.ttf") format("truetype"); 
   font-weight: normal;
   font-style: normal;
+}
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 5s ease infinite;
 }
 
 /* LIGHT MODE */
@@ -64,8 +79,14 @@
   --primary: 32 95% 50%;
   --primary-foreground: 32 85% 98%;
 
+  --vm_primary: 32 95% 50%;
+  --vm_primary-foreground: 32 85% 98%;
+
   --secondary: 240 5% 88%;
   --secondary-foreground: 240 6% 16%;
+
+  --vm_secondary: 240 5% 88%;
+  --vm_secondary-foreground: 240 6% 16%;
 
   --thirdcolor: 210 80% 70%;
   --thirdcolor-foreground: 210 90% 12%;
