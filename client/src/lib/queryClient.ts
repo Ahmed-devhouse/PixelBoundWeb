@@ -7,6 +7,7 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
+/*
 export async function apiRequest(
   method: string,
   url: string,
@@ -20,6 +21,24 @@ export async function apiRequest(
   });
 
   await throwIfResNotOk(res);
+  return res;
+}
+*/
+const API_BASE_URL = "http://localhost:5174"; // <- CHANGE this if your backend uses another port
+
+export async function apiRequest(
+  method: string,
+  url: string,
+  data?: any
+) {
+  const res = await fetch(`${API_BASE_URL}${url}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data ? JSON.stringify(data) : undefined,
+  });
+
   return res;
 }
 

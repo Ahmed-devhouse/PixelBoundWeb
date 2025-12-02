@@ -7,41 +7,49 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { SiX, SiDiscord, SiLinkedin, SiYoutube } from "react-icons/si";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 
 export function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
   const { toast } = useToast();
 
-  const submitMutation = useMutation({
-    mutationFn: async (data: { name: string; email: string; message: string }) => {
-      const res = await apiRequest("POST", "/api/contact", data);
-      return await res.json();
-    },
-    onSuccess: () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setIsSending(true);
+
+    try {
+      const res = await fetch("http://localhost:5174/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.msg || "Failed to send message");
+      }
+
       toast({
         title: "Message sent!",
         description: "We'll get back to you as soon as possible.",
       });
+
       setName("");
       setEmail("");
       setMessage("");
-    },
-    onError: () => {
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: error.message || "Failed to send message",
         variant: "destructive",
       });
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    submitMutation.mutate({ name, email, message });
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -68,8 +76,7 @@ export function ContactSection() {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your name"
                     required
-                    disabled={submitMutation.isPending}
-                    data-testid="input-name"
+                    disabled={isSending}
                   />
                 </div>
                 <div>
@@ -81,8 +88,7 @@ export function ContactSection() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your.email@example.com"
                     required
-                    disabled={submitMutation.isPending}
-                    data-testid="input-email"
+                    disabled={isSending}
                   />
                 </div>
                 <div>
@@ -94,18 +100,16 @@ export function ContactSection() {
                     placeholder="Tell us about your project..."
                     className="min-h-32"
                     required
-                    disabled={submitMutation.isPending}
-                    data-testid="input-message"
+                    disabled={isSending}
                   />
                 </div>
-                <Button 
-                  type="submit" 
-                  size="lg" 
-                  className="w-full" 
-                  disabled={submitMutation.isPending}
-                  data-testid="button-send-message"
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full"
+                  disabled={isSending}
                 >
-                  {submitMutation.isPending ? "Sending..." : "Send Message"}
+                  {isSending ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </Card>
@@ -139,16 +143,16 @@ export function ContactSection() {
             <Card className="p-6">
               <h3 className="font-bold mb-4">Follow Us</h3>
               <div className="flex gap-3">
-                <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-twitter">
+                <button className="p-2 rounded-lg hover-elevate active-elevate-2">
                   <SiX className="w-5 h-5" />
                 </button>
-                <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-discord">
+                <button className="p-2 rounded-lg hover-elevate active-elevate-2">
                   <SiDiscord className="w-5 h-5" />
                 </button>
-                <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-linkedin">
+                <button className="p-2 rounded-lg hover-elevate active-elevate-2">
                   <SiLinkedin className="w-5 h-5" />
                 </button>
-                <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-youtube">
+                <button className="p-2 rounded-lg hover-elevate active-elevate-2">
                   <SiYoutube className="w-5 h-5" />
                 </button>
               </div>
