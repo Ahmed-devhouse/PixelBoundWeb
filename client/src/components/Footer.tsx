@@ -19,7 +19,7 @@ export function Footer() {
               <span className="text-foreground">BOUND</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Crafting unforgettable gaming experiences since 2013
+              Crafting unforgettable gaming experiences since 2017
             </p>
           </div>
 
@@ -33,13 +33,7 @@ export function Footer() {
               >
                 Games
               </button>
-              <button
-                onClick={() => scrollToSection("capabilities")}
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="link-footer-capabilities"
-              >
-                Career
-              </button>
+ 
               <button
                 onClick={() => scrollToSection("about")}
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -76,12 +70,13 @@ export function Footer() {
               <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-footer-linkedin">
                 <SiLinkedin className="w-5 h-5" />
               </button>
-              <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-footer-youtube">
+              <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-footer-youtube"  onClick={() => window.open("https://www.youtube.com/@PixelBoundGames", "_blank")}>
                 <SiYoutube className="w-5 h-5" />
+                
               </button>
             </div>
             <p className="text-sm text-muted-foreground">
-              hello@pixelbound.games
+              contact@pixelbound.games
             </p>
           </div>
         </div>

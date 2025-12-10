@@ -31,7 +31,7 @@ export function Header() {
   }, []);
 
   const handleViralMatchClick = () => {
-    window.location.href = "/viral-match"; // open in same tab
+    window.open("/viral-match") //window.location.href = ; // open in same tab
   };
 
   return (
@@ -68,12 +68,6 @@ export function Header() {
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Games
-          </button>
-          <button
-            onClick={() => scrollToSection("capabilities")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Career
           </button>
           <button
             onClick={() => scrollToSection("about")}
