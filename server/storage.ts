@@ -1,5 +1,9 @@
-import { type User, type InsertUser, type ContactMessage, type InsertContactMessage } from "@shared/schema";
+import "dotenv/config";
+import { type User, type InsertUser, type ContactMessage, type InsertContactMessage, contactMessages, users } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+import { desc, eq } from "drizzle-orm";
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
@@ -53,4 +57,42 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export class DatabaseStorage implements IStorage {
+  private db;
+
+  constructor(databaseUrl: string) {
+    // Create postgres client
+    const client = postgres(databaseUrl);
+    // Initialize drizzle with the client
+    this.db = drizzle(client);
+  }
+
+  async getUser(id: string): Promise<User | undefined> {
+    const result = await this.db.select().from(users).where(eq(users.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const result = await this.db.select().from(users).where(eq(users.username, username)).limit(1);
+    return result[0];
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const result = await this.db.insert(users).values(insertUser).returning();
+    return result[0];
+  }
+
+  async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
+    const result = await this.db.insert(contactMessages).values(insertMessage).returning();
+    return result[0];
+  }
+
+  async getAllContactMessages(): Promise<ContactMessage[]> {
+    return await this.db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt));
+  }
+}
+
+// Use database storage if DATABASE_URL is available, otherwise fall back to memory storage
+export const storage = process.env.DATABASE_URL
+  ? new DatabaseStorage(process.env.DATABASE_URL)
+  : new MemStorage();

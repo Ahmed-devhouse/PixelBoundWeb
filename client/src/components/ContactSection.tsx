@@ -21,7 +21,7 @@ export function ContactSection() {
     setIsSending(true);
 
     try {
-      const res = await fetch("http://localhost:5174/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
@@ -30,7 +30,7 @@ export function ContactSection() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.msg || "Failed to send message");
+        throw new Error(data.error || data.message || "Failed to send message");
       }
 
       toast({
