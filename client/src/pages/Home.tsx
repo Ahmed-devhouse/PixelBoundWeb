@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/HeroSection";
 import { FeaturedGames } from "@/components/FeaturedGames";
 import { Capabilities } from "@/components/Capabilities";
 import { ProcessSection } from "@/components/ProcessSection";
-import { AboutSection } from "@/components/AboutSection";
 import { TechStack } from "@/components/TechStack";
 import { CTASection } from "@/components/CTASection";
 import { ContactSection } from "@/components/ContactSection";
@@ -16,10 +15,9 @@ export default function Home() {
       <main>
         <HeroSection />
         <FeaturedGames />
-       
-
-        <AboutSection />
-     
+        <Capabilities />
+        <ProcessSection />
+        <TechStack />
         <CTASection />
         <ContactSection />
       </main>
