@@ -93,7 +93,7 @@ export function Header() {
 
         </nav>
 
-        {/* Right Side Buttons */}
+       {/* Right Side Buttons 
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <Button
@@ -105,6 +105,8 @@ export function Header() {
             <Menu className="h-5 w-5" />
           </Button>
         </div>
+        
+        */}
       </div>
 
       {/* Mobile Menu */}

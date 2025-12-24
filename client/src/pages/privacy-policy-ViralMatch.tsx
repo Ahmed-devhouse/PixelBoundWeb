@@ -10,8 +10,6 @@ export default function PrivacyPolicyViralMatch() {
         
          <main>
            <HeroSection />
-           <Story />
-           <Games />
          </main>
          <Footer />
        </div>

@@ -7,6 +7,7 @@ import { TechStack } from "@/components/TechStack";
 import { CTASection } from "@/components/CTASection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
+import { AboutSection } from "@/components/AboutSection";
 
 export default function Home() {
   return (
@@ -15,10 +16,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <FeaturedGames />
-        <Capabilities />
-        <ProcessSection />
-        <TechStack />
-        <CTASection />
+        <AboutSection/>
         <ContactSection />
       </main>
       <Footer />

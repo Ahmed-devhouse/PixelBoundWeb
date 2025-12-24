@@ -30,7 +30,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(236,72,153,0.16),transparent_30%)]" />
 
       {/* Content */}
-      <div className="relative z-10 w-full container mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
+      <div className="relative z-10 w-full container mx-auto px-6 sm:px-8 lg:px-12 py-30 lg:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Headline */}
           <div className="space-y-6 text-center lg:text-left">

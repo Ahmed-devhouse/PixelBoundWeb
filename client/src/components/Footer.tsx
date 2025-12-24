@@ -61,7 +61,7 @@ export function Footer() {
           <div>
             <h3 className="font-bold mb-4">Connect</h3>
             <div className="flex gap-3 mb-4">
-              <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-footer-twitter">
+            {/*   <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-footer-twitter">
                 <SiX className="w-5 h-5" />
               </button>
               <button className="p-2 rounded-lg hover-elevate active-elevate-2" data-testid="link-footer-discord">
@@ -74,6 +74,15 @@ export function Footer() {
                 <SiYoutube className="w-5 h-5" />
                 
               </button>
+              */}
+              <a 
+  href="https://www.youtube.com/@PixelBoundGames" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="p-2 rounded-lg hover-elevate active-elevate-2 inline-block"
+>
+  <SiYoutube className="w-5 h-5" />
+</a>
             </div>
             <p className="text-sm text-muted-foreground">
               contact@pixelbound.games
@@ -82,7 +91,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 Pixel Bound Games. All rights reserved.</p>
+          <p>&copy; 2025 Pixel Bound Games LTD. All rights reserved.</p>
         </div>
       </div>
     </footer>

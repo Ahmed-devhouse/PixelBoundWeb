@@ -108,7 +108,7 @@ export function HeroSection() {
         </p>
 
         <p className="text-sm text-gray-600 pt-8">
-          © {new Date().getFullYear()} PixelBound Games. All rights reserved.
+          © {new Date().getFullYear()} Pixel Bound Games LTD. All rights reserved.
         </p>
       </div>
     </section>

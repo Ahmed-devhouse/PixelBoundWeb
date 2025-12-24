@@ -135,7 +135,7 @@ export function ContactSection() {
                 <MapPin className="w-5 h-5 text-primary mt-1" />
                 <div>
                   <h3 className="font-bold mb-1">Location</h3>
-                  <p className="text-sm text-muted-foreground">San Francisco, CA</p>
+                  <p className="text-sm text-muted-foreground">Suite C179 4 - 6, Greatorex Street, London, United Kingdom, E1 5NF</p>
                 </div>
               </div>
             </Card>
@@ -143,7 +143,7 @@ export function ContactSection() {
             <Card className="p-6">
               <h3 className="font-bold mb-4">Follow Us</h3>
               <div className="flex gap-3">
-                <button className="p-2 rounded-lg hover-elevate active-elevate-2">
+               {/* <button className="p-2 rounded-lg hover-elevate active-elevate-2">
                   <SiX className="w-5 h-5" />
                 </button>
                 <button className="p-2 rounded-lg hover-elevate active-elevate-2">
@@ -151,10 +151,17 @@ export function ContactSection() {
                 </button>
                 <button className="p-2 rounded-lg hover-elevate active-elevate-2">
                   <SiLinkedin className="w-5 h-5" />
-                </button>
-                <button className="p-2 rounded-lg hover-elevate active-elevate-2">
-                  <SiYoutube className="w-5 h-5" />
-                </button>
+                </button> */}
+            <a 
+  href="https://www.youtube.com/@PixelBoundGames" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="p-2 rounded-lg hover-elevate active-elevate-2 inline-block"
+>
+  <SiYoutube className="w-5 h-5" />
+</a>
+
+                
               </div>
             </Card>
           </div>
