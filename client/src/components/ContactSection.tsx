@@ -3,11 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { motion } from "framer-motion";
-import { Mail, MapPin, Send, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, MapPin, Send, Sparkles, CheckCircle2 } from "lucide-react";
 import { SiYoutube } from "react-icons/si";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { RippleButton } from "./RippleButton";
 
 const fadeIn = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -21,6 +22,8 @@ export function ContactSection() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,14 +44,19 @@ export function ContactSection() {
         throw new Error(data.error || data.message || "Failed to send message");
       }
 
+      setIsSuccess(true);
       toast({
         title: "Message sent!",
         description: "We'll get back to you as soon as possible.",
       });
 
-      setName("");
-      setEmail("");
-      setMessage("");
+      // Reset form after success animation
+      setTimeout(() => {
+        setName("");
+        setEmail("");
+        setMessage("");
+        setIsSuccess(false);
+      }, 2000);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -97,7 +105,32 @@ export function ContactSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
               
               <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                <div>
+                <AnimatePresence>
+                  {isSuccess && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="absolute inset-0 bg-primary/20 backdrop-blur-sm rounded-3xl flex items-center justify-center z-20 border-2 border-primary/50"
+                    >
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: [0, 1.2, 1] }}
+                        transition={{ duration: 0.5, type: "spring" }}
+                        className="text-center"
+                      >
+                        <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-4" />
+                        <p className="text-2xl font-bold text-white">Message Sent!</p>
+                        <p className="text-white/70 mt-2">We'll get back to you soon</p>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <motion.div
+                  animate={focusedField === "name" ? { scale: 1.02 } : { scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Label htmlFor="name" className="text-white/90 mb-2 block">
                     Name
                   </Label>
@@ -105,13 +138,18 @@ export function ContactSection() {
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    onFocus={() => setFocusedField("name")}
+                    onBlur={() => setFocusedField(null)}
                     placeholder="Your name"
                     required
                     disabled={isSending}
-                    className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-primary/50 focus:ring-primary/20 backdrop-blur-sm"
+                    className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-primary/50 focus:ring-primary/20 backdrop-blur-sm transition-all"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  animate={focusedField === "email" ? { scale: 1.02 } : { scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Label htmlFor="email" className="text-white/90 mb-2 block">
                     Email
                   </Label>
@@ -120,40 +158,60 @@ export function ContactSection() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onFocus={() => setFocusedField("email")}
+                    onBlur={() => setFocusedField(null)}
                     placeholder="your.email@example.com"
                     required
                     disabled={isSending}
-                    className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-primary/50 focus:ring-primary/20 backdrop-blur-sm"
+                    className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-primary/50 focus:ring-primary/20 backdrop-blur-sm transition-all"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  animate={focusedField === "message" ? { scale: 1.02 } : { scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Label htmlFor="message" className="text-white/90 mb-2 block">
-                    Message
+                    Message <span className="text-white/50 text-xs">({message.length} / 500)</span>
                   </Label>
                   <Textarea
                     id="message"
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={(e) => setMessage(e.target.value.slice(0, 500))}
+                    onFocus={() => setFocusedField("message")}
+                    onBlur={() => setFocusedField(null)}
                     placeholder="Tell us about your project..."
-                    className="min-h-32 bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-primary/50 focus:ring-primary/20 backdrop-blur-sm resize-none"
+                    className="min-h-32 bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-primary/50 focus:ring-primary/20 backdrop-blur-sm resize-none transition-all"
                     required
                     disabled={isSending}
+                    maxLength={500}
                   />
-                </div>
+                </motion.div>
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full text-base font-semibold shadow-lg shadow-primary/30 group"
+                  className="w-full text-base font-semibold shadow-lg shadow-primary/30 group relative overflow-hidden"
                   disabled={isSending}
                 >
-                  {isSending ? (
-                    "Sending..."
-                  ) : (
-                    <>
-                      Send Message
-                      <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </>
-                  )}
+                  <RippleButton className="absolute inset-0" />
+                  <span className="relative z-10 flex items-center justify-center">
+                    {isSending ? (
+                      <>
+                        <motion.span
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          className="inline-block mr-2"
+                        >
+                          ⏳
+                        </motion.span>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </span>
                 </Button>
               </form>
             </Card>

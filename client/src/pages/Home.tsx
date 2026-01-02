@@ -8,10 +8,12 @@ import { CTASection } from "@/components/CTASection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { AboutSection } from "@/components/AboutSection";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
+      <ScrollProgress />
       <Header />
       <main>
         <HeroSection />

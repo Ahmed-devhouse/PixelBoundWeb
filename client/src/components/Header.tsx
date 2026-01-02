@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { MagneticButton } from "./MagneticButton";
 import logo from "@assets/generated_images/favicon.gif";
 
 export function Header() {
@@ -57,40 +59,36 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <button
-            onClick={() => scrollToSection("top")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Home
-          </button>
-          <button
-            onClick={() => scrollToSection("games")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Games
-          </button>
-          <button
-            onClick={() => scrollToSection("about")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            About
-          </button>
-          <button
-            onClick={() => scrollToSection("contact")}
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Contact
-          </button>
+          {[
+            { id: "top", label: "Home" },
+            { id: "games", label: "Games" },
+            { id: "about", label: "About" },
+            { id: "contact", label: "Contact" },
+          ].map((item) => (
+            <motion.button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-1"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item.label}
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.button>
+          ))}
 
           {/* 🟣 Viral Match Button */}
-<Button
-  onClick={handleViralMatchClick}
-  className="bg-sky-400 text-white border-2 border-sky-400 hover:bg-sky-500 hover:border-sky-500 rounded-full px-4 py-1 text-sm font-semibold transition"
-
->
-  Viral Match
-</Button>
-
+          <MagneticButton
+            onClick={handleViralMatchClick}
+            className="bg-sky-400 text-white border-2 border-sky-400 hover:bg-sky-500 hover:border-sky-500 rounded-full px-4 py-1 text-sm font-semibold transition shadow-lg shadow-sky-400/30"
+          >
+            Viral Match
+          </MagneticButton>
         </nav>
 
        {/* Right Side Buttons 

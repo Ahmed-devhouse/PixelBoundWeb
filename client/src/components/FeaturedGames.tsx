@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SiGoogleplay, SiAppstore } from "react-icons/si";
 import { ExternalLink } from "lucide-react";
+import { TiltCard } from "./TiltCard";
+import { RippleButton } from "./RippleButton";
 import feature_game1 from "@assets/games/game1.png";
 import feature_game2 from "@assets/games/game2.png";
 import feature_game3 from "@assets/games/game3.png";
@@ -133,10 +135,11 @@ export function FeaturedGames() {
             <motion.div
               key={game.title}
               variants={cardVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ y: -8 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <Card className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_48px_-12px_rgba(99,102,241,0.3)] transition-all duration-500 group h-full flex flex-col">
+              <TiltCard intensity={10}>
+                <Card className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_48px_-12px_rgba(99,102,241,0.3)] transition-all duration-500 group h-full flex flex-col">
                 {/* Game Image */}
                 <div className="relative aspect-video overflow-hidden">
                   <motion.img
@@ -167,45 +170,36 @@ export function FeaturedGames() {
 
                   {/* Modern Store Buttons */}
                   <div className="flex flex-col sm:flex-row gap-2 mt-auto">
-                    <Button
-                      size="sm"
-                      className="flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn"
-                      asChild
+                    <a
+                      href={game.googlePlayUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-2 py-2 px-3"
                     >
-                      <a
-                        href={game.googlePlayUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2"
-                      >
-                        <SiGoogleplay className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                        <span className="text-xs font-semibold">Google Play</span>
-                        <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity" />
-                      </a>
-                    </Button>
+                      <RippleButton className="absolute inset-0" />
+                      <SiGoogleplay className="w-4 h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
+                      <span className="text-xs font-semibold relative z-10">Google Play</span>
+                      <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
+                    </a>
 
-                    <Button
-                      size="sm"
-                      className="flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn"
-                      asChild
+                    <a
+                      href={game.appStoreUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-2 py-2 px-3"
                     >
-                      <a
-                        href={game.appStoreUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2"
-                      >
-                        <SiAppstore className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                        <span className="text-xs font-semibold">App Store</span>
-                        <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity" />
-                      </a>
-                    </Button>
+                      <RippleButton className="absolute inset-0" />
+                      <SiAppstore className="w-4 h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
+                      <span className="text-xs font-semibold relative z-10">App Store</span>
+                      <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
+                    </a>
                   </div>
                 </div>
 
                 {/* Subtle glow effect on hover */}
                 <div className="absolute inset-0 rounded-3xl border border-primary/0 group-hover:border-primary/20 transition-colors pointer-events-none" />
-              </Card>
+                </Card>
+              </TiltCard>
             </motion.div>
           ))}
         </motion.div>

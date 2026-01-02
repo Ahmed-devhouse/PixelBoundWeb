@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { useRef } from "react";
+import { RippleButton } from "./RippleButton";
 import heroBg from "@assets/bg/bg.png";
 
 const fadeIn = (delay = 0) => ({
@@ -10,17 +12,33 @@ const fadeIn = (delay = 0) => ({
 });
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-background via-background/60 to-background">
-      {/* Background */}
+    <section 
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-background via-background/60 to-background"
+    >
+      {/* Background with parallax */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        style={{ 
+          backgroundImage: `url(${heroBg})`,
+          y,
+          opacity,
+        }}
         initial={{ scale: 1.08 }}
         animate={{ scale: 1 }}
         transition={{ duration: 14, ease: "easeOut" }}
@@ -64,20 +82,26 @@ export function HeroSection() {
             >
               <Button
                 size="lg"
-                className="text-base font-semibold px-6 sm:px-8 shadow-lg shadow-primary/30"
+                className="text-base font-semibold px-6 sm:px-8 shadow-lg shadow-primary/30 relative overflow-hidden group"
                 onClick={() => scrollToSection("games")}
               >
-                View our games
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <RippleButton className="absolute inset-0" />
+                <span className="relative z-10 flex items-center">
+                  View our games
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </span>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="text-base font-semibold px-6 sm:px-8 border-white/20 text-white hover:bg-white/10"
+                className="text-base font-semibold px-6 sm:px-8 border-white/20 text-white hover:bg-white/10 relative overflow-hidden group"
                 onClick={() => scrollToSection("contact")}
               >
-                Start a project
-                <Play className="ml-2 h-4 w-4" />
+                <RippleButton className="absolute inset-0" />
+                <span className="relative z-10 flex items-center">
+                  Start a project
+                  <Play className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                </span>
               </Button>
             </motion.div>
 
@@ -91,13 +115,16 @@ export function HeroSection() {
                 { label: "Monthly players", value: "3M+" },
                 { label: "Avg. rating", value: "4.7★" },
               ].map((stat) => (
-                <div
+                <motion.div
                   key={stat.label}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left shadow-inner shadow-white/5 backdrop-blur"
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left shadow-inner shadow-white/5 backdrop-blur cursor-pointer"
+                  whileHover={{ scale: 1.05, y: -4, borderColor: "rgba(99, 102, 241, 0.5)" }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   <div className="text-xs uppercase tracking-wide text-white/60">{stat.label}</div>
                   <div className="text-2xl font-bold text-white">{stat.value}</div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>

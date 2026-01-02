@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { Users, Trophy, Gamepad2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { AnimatedCounter } from "./AnimatedCounter";
 
 const stats = [
   { icon: Gamepad2, value: "25+", label: "Games Shipped" },
@@ -98,7 +99,7 @@ export function AboutSection() {
                         className="text-3xl lg:text-4xl font-bold font-display mb-2 text-white"
                         data-testid={`text-stat-value-${stat.label}`}
                       >
-                        {stat.value}
+                        <AnimatedCounter value={stat.value} />
                       </div>
                       <div
                         className="text-sm text-white/70 uppercase tracking-wide"
