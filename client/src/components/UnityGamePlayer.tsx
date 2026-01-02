@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, Loader2 } from "lucide-react";
+import { X, Loader2, Maximize2, Minimize2, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface UnityGamePlayerProps {
@@ -18,12 +18,60 @@ export function UnityGamePlayer({
   gamePath,
 }: UnityGamePlayerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const unityInstanceRef = useRef<any>(null);
   const scriptsRef = useRef<HTMLScriptElement[]>([]);
   const isLoadingRef = useRef(false);
+
+  // Handle window resize for responsive canvas
+  useEffect(() => {
+    const handleResize = () => {
+      if (canvasRef.current && unityInstanceRef.current && !isLoading) {
+        // Unity will handle canvas resizing automatically, but we ensure proper dimensions
+        const container = containerRef.current;
+        if (container) {
+          const rect = container.getBoundingClientRect();
+          canvasRef.current.style.width = `${rect.width}px`;
+          canvasRef.current.style.height = `${rect.height}px`;
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial call
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isLoading]);
+
+  // Handle fullscreen
+  const toggleFullscreen = () => {
+    if (!containerRef.current) return;
+
+    if (!isFullscreen) {
+      if (containerRef.current.requestFullscreen) {
+        containerRef.current.requestFullscreen();
+      }
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      setIsFullscreen(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
 
   useEffect(() => {
     if (!isOpen || !gamePath) {
@@ -288,29 +336,68 @@ export function UnityGamePlayer({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[95vw] w-full h-[95vh] p-0 gap-0 bg-black/95 border-2 border-primary/50">
-        <DialogHeader className="absolute top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-transparent p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <DialogTitle className="text-white text-xl font-bold">
-                {gameTitle}
-              </DialogTitle>
-              <DialogDescription className="text-white/70 text-sm mt-1">
-                Play this game directly in your browser
-              </DialogDescription>
+      <DialogContent 
+        className="max-w-[98vw] sm:max-w-[95vw] w-full h-[98vh] sm:h-[95vh] p-0 gap-0 bg-gradient-to-br from-black via-black/95 to-black border-2 border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl"
+        style={{ 
+          maxHeight: "98vh",
+          height: "98vh"
+        }}
+      >
+        {/* Modern Header */}
+        <DialogHeader className="absolute top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/95 via-black/80 to-transparent backdrop-blur-xl border-b border-white/10 p-3 sm:p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <motion.div
+                className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/20 border border-primary/30"
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              >
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              </motion.div>
+              <div className="flex-1 min-w-0">
+                <DialogTitle className="text-white text-base sm:text-xl font-bold truncate">
+                  {gameTitle}
+                </DialogTitle>
+                <DialogDescription className="text-white/60 text-xs sm:text-sm mt-0.5 hidden sm:block">
+                  Play directly in your browser
+                </DialogDescription>
+              </div>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleClose}
-              className="text-white hover:bg-white/20 rounded-full"
-            >
-              <X className="h-5 w-5" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleFullscreen}
+                className="text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-colors"
+                title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+              >
+                {isFullscreen ? (
+                  <Minimize2 className="h-4 w-4 sm:h-5 sm:w-5" />
+                ) : (
+                  <Maximize2 className="h-4 w-4 sm:h-5 sm:w-5" />
+                )}
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleClose}
+                className="text-white/80 hover:text-white hover:bg-red-500/20 rounded-xl transition-colors"
+              >
+                <X className="h-4 w-4 sm:h-5 sm:w-5" />
+              </Button>
+            </div>
           </div>
         </DialogHeader>
 
-        <div className="relative w-full h-full flex items-center justify-center bg-black">
+        <div 
+          ref={containerRef}
+          className="relative w-full flex items-center justify-center bg-gradient-to-br from-black via-slate-950 to-black overflow-hidden"
+          style={{ 
+            height: "calc(100% - 60px)",
+            marginTop: "60px",
+            minHeight: "calc(100vh - 60px)",
+          }}
+        >
           {/* Unity expects these DOM elements - create them but hide them */}
           <div id="unity-container" style={{ display: "none" }}>
             <div id="unity-loading-bar" style={{ display: "none" }}>
@@ -330,52 +417,148 @@ export function UnityGamePlayer({
           {isLoading && (
             <AnimatePresence>
               <motion.div
-                className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-10"
+                className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-black/95 via-black/90 to-black/95 backdrop-blur-sm z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <Loader2 className="h-12 w-12 text-primary animate-spin mb-4" />
-                <p className="text-white text-lg mb-2">Loading {gameTitle}...</p>
-                <div className="w-64 h-2 bg-white/20 rounded-full overflow-hidden">
+                <div className="relative">
+                  {/* Animated background glow */}
                   <motion.div
-                    className="h-full bg-primary rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${loadProgress}%` }}
-                    transition={{ 
-                      duration: 0.2,
-                      ease: "easeOut"
+                    className="absolute inset-0 bg-primary/20 rounded-full blur-3xl"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.5, 0.3],
                     }}
-                    key={loadProgress}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   />
+                  
+                  {/* Loading spinner */}
+                  <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                    <motion.div
+                      className="flex flex-col items-center gap-4 sm:gap-6"
+                      initial={{ scale: 0.9, y: 20 }}
+                      animate={{ scale: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Loader2 className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
+                      </motion.div>
+                      
+                      <div className="text-center">
+                        <motion.p
+                          className="text-white text-base sm:text-lg font-semibold mb-1"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          Loading {gameTitle}...
+                        </motion.p>
+                        <p className="text-white/50 text-xs sm:text-sm">
+                          Please wait while we prepare your game
+                        </p>
+                      </div>
+
+                      {/* Modern progress bar */}
+                      <div className="w-full max-w-xs sm:max-w-sm">
+                        <div className="w-full h-2 sm:h-2.5 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
+                          <motion.div
+                            className="h-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full relative overflow-hidden"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${loadProgress}%` }}
+                            transition={{ 
+                              duration: 0.3,
+                              ease: "easeOut"
+                            }}
+                          >
+                            {/* Shimmer effect */}
+                            <motion.div
+                              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                              animate={{
+                                x: ["-100%", "100%"],
+                              }}
+                              transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "linear",
+                              }}
+                            />
+                          </motion.div>
+                        </div>
+                        <motion.p
+                          className="text-white/80 text-sm sm:text-base font-bold mt-2 text-center"
+                          key={loadProgress}
+                          initial={{ scale: 1.2 }}
+                          animate={{ scale: 1 }}
+                        >
+                          {Math.round(loadProgress)}%
+                        </motion.p>
+                      </div>
+                    </motion.div>
+                  </div>
                 </div>
-                <p className="text-white/70 text-sm mt-2">{Math.round(loadProgress)}%</p>
               </motion.div>
             </AnimatePresence>
           )}
 
           {error && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-10 p-8">
-              <div className="text-center max-w-md">
-                <p className="text-red-400 text-lg mb-4">Failed to load game</p>
-                <p className="text-white/70 text-sm mb-6">{error}</p>
-                <Button onClick={handleClose} variant="outline">
+            <motion.div
+              className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-black/95 via-black/90 to-black/95 backdrop-blur-sm z-10 p-4 sm:p-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <div className="bg-white/5 backdrop-blur-xl border border-red-500/30 rounded-3xl p-6 sm:p-8 max-w-md text-center shadow-2xl">
+                <motion.div
+                  className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 rounded-full bg-red-500/20 flex items-center justify-center border border-red-500/30"
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <X className="h-8 w-8 sm:h-10 sm:w-10 text-red-400" />
+                </motion.div>
+                <p className="text-red-400 text-lg sm:text-xl font-bold mb-2">Failed to load game</p>
+                <p className="text-white/70 text-sm sm:text-base mb-6">{error}</p>
+                <Button
+                  onClick={handleClose}
+                  className="bg-primary hover:bg-primary/90 text-white rounded-xl px-6 py-2"
+                >
                   Close
                 </Button>
               </div>
-            </div>
+            </motion.div>
           )}
 
           <canvas
             ref={canvasRef}
             id="unity-canvas"
-            className="w-full h-full"
+            className="w-full h-full object-contain"
             style={{
               width: "100%",
               height: "100%",
+              maxWidth: "100%",
+              maxHeight: "100%",
               display: isLoading || error ? "none" : "block",
+              imageRendering: "auto",
             }}
           />
+          
+          {/* Responsive overlay hint for mobile */}
+          {!isLoading && !error && (
+            <motion.div
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 text-white/80 text-xs sm:hidden z-20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              Tap to interact
+            </motion.div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
