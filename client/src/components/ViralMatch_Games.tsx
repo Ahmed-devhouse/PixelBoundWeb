@@ -23,7 +23,7 @@ export function Games() {
       title: "Viral Match 3D",
       image: game1,
       description: "Help Vivi match and go viral in this stylish puzzle adventure.",
-      gamePath: "/games/minigame1", // Path to Unity WebGL build folder
+      gamePath: "/games/minigame1",
     },
     {
       title: "Emoji Pop",
@@ -67,6 +67,78 @@ export function Games() {
       description: "Master the hashtags and conquer the social world!",
       gamePath: "/games/minigame1",
     },
+    {
+      title: "Follower Frenzy",
+      image: game1,
+      description: "Build your social empire one follower at a time in this addictive clicker!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Viral Video Maker",
+      image: game2,
+      description: "Create and edit viral videos to skyrocket your views and engagement!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Brand Collab Quest",
+      image: game3,
+      description: "Partner with top brands and unlock exclusive sponsorship deals!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Live Stream Battle",
+      image: game4,
+      description: "Go live and compete with other influencers for the most viewers!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Photo Shoot Pro",
+      image: game5,
+      description: "Perfect your photography skills and create stunning content!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Story Master",
+      image: game6,
+      description: "Craft engaging stories that keep your audience coming back for more!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Reels Challenge",
+      image: game7,
+      description: "Create viral reels and participate in trending challenges!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Influencer Clash",
+      image: game8,
+      description: "Battle other influencers in epic showdowns for social media dominance!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Content Calendar",
+      image: game1,
+      description: "Plan and schedule your posts to maximize engagement and reach!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Fan Mail Manager",
+      image: game2,
+      description: "Respond to fan messages and build stronger connections with your audience!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Viral Challenge",
+      image: game3,
+      description: "Complete daily challenges to boost your viral potential!",
+      gamePath: "/games/minigame1",
+    },
+    {
+      title: "Social Media Tycoon",
+      image: game4,
+      description: "Build and manage your social media empire from the ground up!",
+      gamePath: "/games/minigame1",
+    },
   ];
 
   const handlePlayGame = (title: string, gamePath: string) => {
@@ -98,7 +170,6 @@ export function Games() {
         className="relative z-10 text-4xl sm:text-5xl font-extrabold text-sky-400 mb-12 text-center"
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
         viewport={{ once: true }}
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}

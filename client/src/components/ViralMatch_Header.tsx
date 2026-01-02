@@ -107,12 +107,7 @@ export function Header() {
                 <span className="absolute left-0 bottom-[-4px] w-full h-[2px] bg-pink-400 rounded-full scale-x-0 origin-left transition-transform duration-200" />
               </button>
 
-              <Button
-                onClick={handlePlayOnlineClick}
-                className="bg-gradient-to-r from-sky-400 to-pink-400 text-white font-bold rounded-full px-4 py-2 text-sm hover:shadow-[0_0_16px_rgba(56,189,248,0.55)] transition-transform hover:scale-105 border-0"
-              >
-                Play Online
-              </Button>
+          
             </nav>
 
             {/* Right controls - theme + mobile menu */}

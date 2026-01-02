@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
-import { GameCard } from "./GameCard";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { SiGoogleplay, SiAppstore } from "react-icons/si";
+import { ExternalLink } from "lucide-react";
 import feature_game1 from "@assets/games/game1.png";
 import feature_game2 from "@assets/games/game2.png";
 import feature_game3 from "@assets/games/game3.png";
 import feature_game4 from "@assets/games/game4.png";
 import feature_game5 from "@assets/games/game5.png";
 import feature_game6 from "@assets/games/game6.png";
-import googlePlay from "@assets/icons/google-play-badge.png";
-import appStore from "@assets/icons/app-store-badge.png";
 
 const games = [
   {
@@ -72,40 +74,48 @@ const games = [
   },
 ];
 
+const fadeIn = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.7, ease: "easeOut", delay },
+});
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2 },
+    transition: { staggerChildren: 0.15 },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 60, scale: 0.95 },
+  hidden: { opacity: 0, y: 40, scale: 0.96 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { type: "spring", stiffness: 60, damping: 15 },
+    transition: { type: "spring", stiffness: 100, damping: 20 },
   },
 };
 
 export function FeaturedGames() {
   return (
-    <section id="games" className="py-16 md:py-24 lg:py-32 overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section id="games" className="relative py-16 md:py-24 lg:py-32 overflow-hidden">
+      {/* Background effects matching hero */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.08),transparent_50%)]" />
+      
+      <div className="relative container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
           className="text-center mb-12 lg:mb-16"
-          initial={{ opacity: 0, y: -40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          viewport={{ once: true }}
+          {...fadeIn(0)}
         >
-          <h2 className="font-display text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="font-display text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 text-white">
             Our <span className="text-primary">GAMES</span>
           </h2>
-          <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg lg:text-xl text-white/70 max-w-2xl mx-auto">
             Explore our portfolio of award-winning titles that have captivated
             players worldwide
           </p>
@@ -119,60 +129,96 @@ export function FeaturedGames() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {games.map((game) => (
+          {games.map((game, index) => (
             <motion.div
               key={game.title}
               variants={cardVariants}
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 120 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <div className="relative overflow-hidden rounded-2xl bg-card shadow-lg hover:shadow-xl transition-all duration-300">
-                <GameCard {...game} />
-
-                {/* Store Buttons in Bottom Right Corner */}
-                <div className="absolute bottom-4 right-4 flex flex-col sm:flex-row gap-2">
-                  <a
-                    href={game.googlePlayUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-28 transform hover:scale-105 transition-transform"
-                  >
-                    <img
-                      src={googlePlay}
-                      alt="Get it on Google Play"
-                      className="w-full h-auto object-contain"
-                    />
-                  </a>
-                  <a
-                    href={game.appStoreUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-28 transform hover:scale-105 transition-transform"
-                  >
-                    <img
-                      src={appStore}
-                      alt="Download on the App Store"
-                      className="w-full h-auto object-contain"
-                    />
-                  </a>
+              <Card className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_48px_-12px_rgba(99,102,241,0.3)] transition-all duration-500 group h-full flex flex-col">
+                {/* Game Image */}
+                <div className="relative aspect-video overflow-hidden">
+                  <motion.img
+                    src={game.image}
+                    alt={game.title}
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  
+                  {/* Genre Badge Overlay */}
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20">
+                      {game.genre}
+                    </Badge>
+                  </div>
                 </div>
-              </div>
+
+                {/* Card Content */}
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold mb-2 text-white group-hover:text-primary transition-colors">
+                    {game.title}
+                  </h3>
+                  <p className="text-sm text-white/70 mb-6 leading-relaxed flex-grow">
+                    {game.description}
+                  </p>
+
+                  {/* Modern Store Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-2 mt-auto">
+                    <Button
+                      size="sm"
+                      className="flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn"
+                      asChild
+                    >
+                      <a
+                        href={game.googlePlayUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2"
+                      >
+                        <SiGoogleplay className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                        <span className="text-xs font-semibold">Google Play</span>
+                        <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity" />
+                      </a>
+                    </Button>
+
+                    <Button
+                      size="sm"
+                      className="flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn"
+                      asChild
+                    >
+                      <a
+                        href={game.appStoreUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2"
+                      >
+                        <SiAppstore className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                        <span className="text-xs font-semibold">App Store</span>
+                        <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Subtle glow effect on hover */}
+                <div className="absolute inset-0 rounded-3xl border border-primary/0 group-hover:border-primary/20 transition-colors pointer-events-none" />
+              </Card>
             </motion.div>
           ))}
         </motion.div>
 
         {/* 🎥 Game Trailer Section */}
         <motion.div
-          className="mt-24 text-center"
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
+          className="mt-24 text-center relative"
+          {...fadeIn(0.2)}
         >
-          <h3 className="font-display text-3xl lg:text-4xl font-bold mb-4">
+          <h3 className="font-display text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 text-white">
             Watch Our <span className="text-primary">Game Trailers</span>
           </h3>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-white/70 mb-12 max-w-2xl mx-auto">
             Dive into the excitement with our featured trailers showcasing the thrill, puzzles, and adventure.
           </p>
 
@@ -180,9 +226,9 @@ export function FeaturedGames() {
           <div className="relative flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8">
             {/* Left Small Video */}
             <motion.div
-              className="w-[85%] md:w-[25%] aspect-video rounded-2xl overflow-hidden shadow-xl opacity-70 hover:opacity-100 transition-all duration-500"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 120 }}
+              className="w-[85%] md:w-[25%] aspect-video rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] opacity-70 hover:opacity-100 transition-all duration-500"
+              whileHover={{ scale: 1.05, y: -4 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
               <iframe
                 className="w-full h-full"
@@ -195,9 +241,9 @@ export function FeaturedGames() {
 
             {/* Center Main Video */}
             <motion.div
-              className="w-[95%] md:w-[40%] aspect-video rounded-2xl overflow-hidden shadow-2xl z-10"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 120 }}
+              className="w-[95%] md:w-[40%] aspect-video rounded-3xl overflow-hidden border-2 border-primary/30 bg-white/5 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(99,102,241,0.4)] z-10"
+              whileHover={{ scale: 1.05, y: -4 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
               <iframe
                 className="w-full h-full"
@@ -210,9 +256,9 @@ export function FeaturedGames() {
 
             {/* Right Small Video */}
             <motion.div
-              className="w-[85%] md:w-[25%] aspect-video rounded-2xl overflow-hidden shadow-xl opacity-70 hover:opacity-100 transition-all duration-500"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 120 }}
+              className="w-[85%] md:w-[25%] aspect-video rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] opacity-70 hover:opacity-100 transition-all duration-500"
+              whileHover={{ scale: 1.05, y: -4 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
               <iframe
                 className="w-full h-full"
@@ -222,11 +268,6 @@ export function FeaturedGames() {
                 allowFullScreen
               ></iframe>
             </motion.div>
-          </div>
-
-          {/* Optional Gradient Glow Effect */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/2 left-0 w-full h-[60%] bg-gradient-to-t from-background via-transparent to-transparent opacity-50"></div>
           </div>
         </motion.div>
 
