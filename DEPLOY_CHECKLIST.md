@@ -71,3 +71,4 @@ vercel --prod
 - **404 on routes**: Verify `vercel.json` rewrites are working
 
 See `VERCEL_DEPLOYMENT.md` for detailed troubleshooting.
+
