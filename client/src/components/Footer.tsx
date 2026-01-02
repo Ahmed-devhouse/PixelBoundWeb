@@ -85,7 +85,7 @@ export function Footer() {
 </a>
             </div>
             <p className="text-sm text-muted-foreground">
-              contact@pixelbound.games
+              contact@pixelboundgames.com
             </p>
           </div>
         </div>

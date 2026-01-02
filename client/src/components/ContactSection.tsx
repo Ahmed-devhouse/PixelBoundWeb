@@ -121,16 +121,10 @@ export function ContactSection() {
                 <Mail className="w-5 h-5 text-primary mt-1" />
                 <div>
                   <h3 className="font-bold mb-1">Email</h3>
-                  <p className="text-sm text-muted-foreground">hello@pixelbound.games</p>
+                  <p className="text-sm text-muted-foreground">contact@pixelboundgames.com</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 mb-4">
-                <Phone className="w-5 h-5 text-primary mt-1" />
-                <div>
-                  <h3 className="font-bold mb-1">Phone</h3>
-                  <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
-                </div>
-              </div>
+             
               <div className="flex items-start gap-4">
                 <MapPin className="w-5 h-5 text-primary mt-1" />
                 <div>
