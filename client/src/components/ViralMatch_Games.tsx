@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { UnityGamePlayer } from "@/components/UnityGamePlayer";
 import heroBg from "@assets/bg/vm_bg.png";
 import game1 from "@assets/games/game1.png";
 import game2 from "@assets/games/game2.png";
@@ -11,62 +13,76 @@ import game7 from "@assets/games/game7.png";
 import game8 from "@assets/games/game8.png";
 
 export function Games() {
+  const [selectedGame, setSelectedGame] = useState<{
+    title: string;
+    path: string;
+  } | null>(null);
+
   const games = [
     {
       title: "Viral Match 3D",
       image: game1,
       description: "Help Vivi match and go viral in this stylish puzzle adventure.",
-      link: "/play/viral-match-3d",
+      gamePath: "/games/minigame1", // Path to Unity WebGL build folder
     },
     {
       title: "Emoji Pop",
       image: game2,
       description: "Pop emojis and express your mood in this fun, colorful game!",
-      link: "/play/emoji-pop",
+      gamePath: "/games/minigame1",
     },
     {
       title: "Influencer Run",
       image: game3,
       description: "Run, collect fans, and dodge haters to boost your popularity!",
-      link: "/play/influencer-run",
+      gamePath: "/games/minigame1",
     },
     {
       title: "Style Star",
       image: game4,
       description: "Dress up Vivi and shine on the runway with your viral outfits.",
-      link: "/play/style-star",
+      gamePath: "/games/minigame1",
     },
     {
       title: "Dance Fever",
       image: game5,
       description: "Tap to the beat and help Vivi dominate the dance floor!",
-      link: "/play/dance-fever",
+      gamePath: "/games/minigame1",
     },
     {
       title: "Trend Maker",
       image: game6,
       description: "Create trends and become the next viral sensation!",
-      link: "/play/trend-maker",
+      gamePath: "/games/minigame1",
     },
     {
       title: "Selfie Saga",
       image: game7,
       description: "Capture perfect selfies and grow your follower base!",
-      link: "/play/selfie-saga",
+      gamePath: "/games/minigame1",
     },
     {
       title: "Hashtag Hero",
       image: game8,
       description: "Master the hashtags and conquer the social world!",
-      link: "/play/hashtag-hero",
+      gamePath: "/games/minigame1",
     },
   ];
 
+  const handlePlayGame = (title: string, gamePath: string) => {
+    setSelectedGame({ title, path: gamePath });
+  };
+
+  const handleCloseGame = () => {
+    setSelectedGame(null);
+  };
+
   return (
-    <section
-      id="games"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden font-[Montserrat,sans-serif] py-24"
-    >
+    <>
+      <section
+        id="games"
+        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden font-[Montserrat,sans-serif] py-24"
+      >
       {/* Background */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
@@ -144,7 +160,7 @@ export function Games() {
                   <Button
                     size="lg"
                     className="bg-sky-400 text-white border-2 border-sky-400 hover:bg-sky-500 hover:border-sky-500 rounded-full px-4 py-1 text-sm font-semibold transition w-full"
-                    onClick={() => window.open(game.link, "_blank")}
+                    onClick={() => handlePlayGame(game.title, game.gamePath)}
                   >
                     Play Now
                   </Button>
@@ -168,5 +184,16 @@ export function Games() {
         </motion.div>
       </div>
     </section>
+
+    {/* Unity Game Player Modal */}
+    {selectedGame && (
+      <UnityGamePlayer
+        isOpen={!!selectedGame}
+        onClose={handleCloseGame}
+        gameTitle={selectedGame.title}
+        gamePath={selectedGame.path}
+      />
+    )}
+    </>
   );
 }
