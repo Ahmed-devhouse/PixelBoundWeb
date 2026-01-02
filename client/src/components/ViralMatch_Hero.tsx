@@ -1,14 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Heart, Share2, Play, TrendingUp, Users, Sparkles, Zap } from "lucide-react";
+import { useViralMatch } from "@/contexts/ViralMatchContext";
 import featuredGame from "@assets/featured_game/feature.png";
 import heroBg from "@assets/bg/vm_bg.png";
 
 export function HeroSection() {
-  const [followers, setFollowers] = useState(0);
-  const [likes, setLikes] = useState(0);
-  const [engagement, setEngagement] = useState(0);
+  const { stats, addFollowers, addLikes, addEngagement, addShares } = useViralMatch();
   const [clickedElements, setClickedElements] = useState({
     viral: false,
     challenges: false,
@@ -22,25 +21,6 @@ export function HeroSection() {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Animate follower count on mount
-  useEffect(() => {
-    const targetFollowers = 125000;
-    const duration = 2000;
-    const steps = 60;
-    const increment = targetFollowers / steps;
-    let current = 0;
-    const interval = setInterval(() => {
-      current += increment;
-      if (current >= targetFollowers) {
-        setFollowers(targetFollowers);
-        clearInterval(interval);
-      } else {
-        setFollowers(Math.floor(current));
-      }
-    }, duration / steps);
-    return () => clearInterval(interval);
-  }, []);
-
   // Track mouse position for interactive particles
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -51,8 +31,8 @@ export function HeroSection() {
   }, []);
 
   const handleLike = () => {
-    setLikes((prev) => prev + 1);
-    setEngagement((prev) => prev + 5);
+    addLikes(1);
+    addEngagement(5);
     // Add particle effect
     const newParticle = {
       id: Date.now(),
@@ -66,20 +46,21 @@ export function HeroSection() {
   };
 
   const handleShare = () => {
-    setEngagement((prev) => prev + 10);
-    setFollowers((prev) => prev + Math.floor(Math.random() * 50) + 10);
+    addShares(1);
+    addEngagement(10);
+    addFollowers(Math.floor(Math.random() * 50) + 10);
   };
 
   const handleInteractiveClick = (element: "viral" | "challenges" | "influencer") => {
     setClickedElements((prev) => ({ ...prev, [element]: true }));
-    setEngagement((prev) => prev + 3);
+    addEngagement(3);
     setTimeout(() => {
       setClickedElements((prev) => ({ ...prev, [element]: false }));
     }, 1000);
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden font-[Montserrat,sans-serif]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden font-[Montserrat,sans-serif] pt-28 md:pt-32">
       {/* Animated Background */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
@@ -113,8 +94,8 @@ export function HeroSection() {
           }}
           whileHover={{ scale: 2, opacity: 1 }}
           onClick={() => {
-            setEngagement((prev) => prev + 1);
-            setFollowers((prev) => prev + 1);
+            addEngagement(1);
+            addFollowers(1);
           }}
         />
       ))}
@@ -145,7 +126,7 @@ export function HeroSection() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          {/* Stats Counter */}
+          {/* Quick Stats Preview */}
           <motion.div
             className="flex gap-4 justify-center lg:justify-start mb-4"
             initial={{ opacity: 0, y: -20 }}
@@ -153,25 +134,27 @@ export function HeroSection() {
             transition={{ delay: 0.2 }}
           >
             <motion.div
-              className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 px-4 py-2 flex items-center gap-2"
+              className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 px-4 py-2 flex items-center gap-2 cursor-pointer"
               whileHover={{ scale: 1.05 }}
+              onClick={() => addFollowers(5)}
             >
               <Users className="w-4 h-4 text-sky-400" />
               <div>
                 <div className="text-xs text-white/60">Followers</div>
                 <div className="text-sm font-bold text-white">
-                  {followers.toLocaleString()}
+                  {(stats.followers / 1000).toFixed(0)}K
                 </div>
               </div>
             </motion.div>
             <motion.div
-              className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 px-4 py-2 flex items-center gap-2"
+              className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 px-4 py-2 flex items-center gap-2 cursor-pointer"
               whileHover={{ scale: 1.05 }}
+              onClick={() => addEngagement(2)}
             >
               <TrendingUp className="w-4 h-4 text-pink-400" />
               <div>
                 <div className="text-xs text-white/60">Engagement</div>
-                <div className="text-sm font-bold text-white">{engagement}</div>
+                <div className="text-sm font-bold text-white">{stats.engagement}</div>
               </div>
             </motion.div>
           </motion.div>
@@ -203,8 +186,8 @@ export function HeroSection() {
               className="block text-7xl sm:text-8xl mt-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-sky-400 to-purple-400 animate-gradient-x cursor-pointer relative"
               whileHover={{ scale: 1.05 }}
               onClick={() => {
-                setEngagement((prev) => prev + 5);
-                setFollowers((prev) => prev + 10);
+                addEngagement(5);
+                addFollowers(10);
               }}
             >
               Viral Match
@@ -288,12 +271,12 @@ export function HeroSection() {
                 className="bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/30 rounded-full px-4 py-2 flex items-center gap-2 text-sm font-semibold backdrop-blur-sm transition-colors"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                animate={likes > 0 ? {
+                animate={stats.likes > 0 ? {
                   scale: [1, 1.2, 1],
                 } : {}}
               >
-                <Heart className="w-4 h-4 text-pink-400" fill={likes > 0 ? "#f472b6" : "none"} />
-                <span>{likes}</span>
+                <Heart className="w-4 h-4 text-pink-400" fill={stats.likes > 0 ? "#f472b6" : "none"} />
+                <span>{stats.likes}</span>
               </motion.button>
 
               <motion.button
@@ -320,8 +303,8 @@ export function HeroSection() {
             className="relative w-full max-w-md sm:max-w-lg lg:max-w-xl rounded-3xl overflow-hidden backdrop-blur-md bg-white/5 border border-white/10 shadow-2xl hover:shadow-sky-400/40 transition-all duration-500 cursor-pointer group"
             whileHover={{ scale: 1.05, rotate: 1 }}
             onClick={() => {
-              setEngagement((prev) => prev + 15);
-              setFollowers((prev) => prev + 25);
+              addEngagement(15);
+              addFollowers(25);
               scrollToSection("games");
             }}
           >

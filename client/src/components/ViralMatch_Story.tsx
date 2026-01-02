@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Heart, Star, TrendingUp, Sparkles, Trophy } from "lucide-react";
+import { useViralMatch } from "@/contexts/ViralMatchContext";
 import vivi1 from "@assets/story/vivi1.png";
 import vivi2 from "@assets/story/vivi2.png";
 import vivi3 from "@assets/story/vivi3.png";
 import storyBg from "@assets/bg/vm_bg.png";
 
 export function Story() {
-  const [likes, setLikes] = useState(0);
+  const { stats, addLikes, addViralPoints, addEngagement, addFollowers } = useViralMatch();
   const [stars, setStars] = useState(0);
-  const [viralPoints, setViralPoints] = useState(0);
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
   const [interactiveElements, setInteractiveElements] = useState({
     viviClicked: false,
@@ -18,18 +18,23 @@ export function Story() {
   });
 
   const handleLike = () => {
-    setLikes((prev) => prev + 1);
-    setViralPoints((prev) => prev + 2);
+    addLikes(1);
+    addViralPoints(2);
+    addEngagement(3);
   };
 
   const handleStar = () => {
     setStars((prev) => prev + 1);
-    setViralPoints((prev) => prev + 10);
+    addViralPoints(10);
+    addEngagement(5);
+    addFollowers(5);
   };
 
   const handleCharacterClick = (index: number) => {
     setSelectedCharacter(index);
-    setViralPoints((prev) => prev + 5);
+    addViralPoints(5);
+    addEngagement(3);
+    addFollowers(2);
     setTimeout(() => setSelectedCharacter(null), 2000);
   };
 
@@ -76,17 +81,19 @@ export function Story() {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 sm:px-10 lg:px-16 text-white">
-        {/* Viral Points Counter */}
+        {/* Viral Points Counter - Now using shared context */}
         <motion.div
-          className="absolute top-4 right-4 md:top-8 md:right-8 bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 px-4 py-3 flex items-center gap-3"
+          className="absolute top-4 right-4 md:top-8 md:right-8 bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 px-4 py-3 flex items-center gap-3 cursor-pointer"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5 }}
+          whileHover={{ scale: 1.05 }}
+          onClick={() => addViralPoints(1)}
         >
           <Trophy className="w-5 h-5 text-yellow-400" />
           <div>
             <div className="text-xs text-white/60">Viral Points</div>
-            <div className="text-lg font-bold text-yellow-400">{viralPoints}</div>
+            <div className="text-lg font-bold text-yellow-400">{stats.viralPoints}</div>
           </div>
         </motion.div>
 
@@ -117,7 +124,9 @@ export function Story() {
                 className="text-pink-400 font-semibold cursor-pointer inline-block relative"
                 onClick={() => {
                   setInteractiveElements((prev) => ({ ...prev, viviClicked: true }));
-                  setViralPoints((prev) => prev + 3);
+                  addViralPoints(3);
+                  addEngagement(2);
+                  addFollowers(1);
                   setTimeout(() => setInteractiveElements((prev) => ({ ...prev, viviClicked: false })), 1000);
                 }}
                 whileHover={{ scale: 1.2, rotate: [0, -10, 10, -10, 0] }}
@@ -155,7 +164,9 @@ export function Story() {
                 className="text-yellow-400 font-semibold cursor-pointer inline-block"
                 onClick={() => {
                   setInteractiveElements((prev) => ({ ...prev, challengeClicked: true }));
-                  setViralPoints((prev) => prev + 5);
+                  addViralPoints(5);
+                  addEngagement(3);
+                  addFollowers(2);
                   setTimeout(() => setInteractiveElements((prev) => ({ ...prev, challengeClicked: false })), 1000);
                 }}
                 whileHover={{ scale: 1.15 }}
@@ -182,7 +193,9 @@ export function Story() {
                 className="text-purple-400 font-semibold cursor-pointer inline-block"
                 onClick={() => {
                   setInteractiveElements((prev) => ({ ...prev, outfitClicked: true }));
-                  setViralPoints((prev) => prev + 4);
+                  addViralPoints(4);
+                  addEngagement(3);
+                  addFollowers(2);
                   setTimeout(() => setInteractiveElements((prev) => ({ ...prev, outfitClicked: false })), 1000);
                 }}
                 whileHover={{ scale: 1.15, rotate: [0, 5, -5, 0] }}
@@ -212,12 +225,12 @@ export function Story() {
                 className="flex items-center gap-2 bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/30 rounded-xl px-4 py-2 text-sm font-semibold transition-colors backdrop-blur-sm"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                animate={likes > 0 ? {
+                animate={stats.likes > 0 ? {
                   scale: [1, 1.2, 1],
                 } : {}}
               >
-                <Heart className="w-4 h-4 text-pink-400" fill={likes > 0 ? "#f472b6" : "none"} />
-                <span>{likes}</span>
+                <Heart className="w-4 h-4 text-pink-400" fill={stats.likes > 0 ? "#f472b6" : "none"} />
+                <span>{stats.likes}</span>
               </motion.button>
 
               <motion.button
@@ -238,7 +251,10 @@ export function Story() {
                 className="flex items-center gap-2 bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/30 rounded-xl px-4 py-2 text-sm font-semibold transition-colors backdrop-blur-sm"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setViralPoints((prev) => prev + 2)}
+                onClick={() => {
+                  addViralPoints(2);
+                  addEngagement(1);
+                }}
               >
                 <TrendingUp className="w-4 h-4 text-sky-400" />
                 <span>Boost</span>
@@ -320,17 +336,17 @@ export function Story() {
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-semibold text-white/80">Viral Progress</span>
-              <span className="text-sm font-bold text-sky-400">{viralPoints} / 100</span>
+              <span className="text-sm font-bold text-sky-400">{stats.viralPoints} / 100</span>
             </div>
             <div className="h-3 bg-white/10 rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-sky-500 rounded-full"
                 initial={{ width: 0 }}
-                animate={{ width: `${Math.min((viralPoints / 100) * 100, 100)}%` }}
+                animate={{ width: `${Math.min((stats.viralPoints / 100) * 100, 100)}%` }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               />
             </div>
-            {viralPoints >= 100 && (
+            {stats.viralPoints >= 100 && (
               <motion.div
                 className="mt-4 text-center"
                 initial={{ opacity: 0, scale: 0 }}

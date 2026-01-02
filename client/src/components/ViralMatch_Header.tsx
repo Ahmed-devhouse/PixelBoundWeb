@@ -42,10 +42,10 @@ export function Header() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.45, ease: "easeOut" }}
-      className={`fixed top-4 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-black/72 shadow-lg backdrop-blur-2xl border border-sky-400/20"
-          : "bg-black/40 shadow-md backdrop-blur-lg border border-white/10"
+          ? "bg-black/72 shadow-lg backdrop-blur-2xl border-b border-sky-400/20"
+          : "bg-black/40 shadow-md backdrop-blur-lg border-b border-white/10"
       }`}
       style={{ pointerEvents: "auto" }}
     >

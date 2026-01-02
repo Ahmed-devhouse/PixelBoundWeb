@@ -22,6 +22,8 @@ export function UnityGamePlayer({
   const [loadProgress, setLoadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const unityInstanceRef = useRef<any>(null);
+  const scriptsRef = useRef<HTMLScriptElement[]>([]);
+  const isLoadingRef = useRef(false);
 
   useEffect(() => {
     if (!isOpen || !gamePath) {
@@ -29,21 +31,23 @@ export function UnityGamePlayer({
       setIsLoading(false);
       setLoadProgress(0);
       setError(null);
+      isLoadingRef.current = false;
       return;
     }
 
-    // Don't initialize if already initialized
-    if (unityInstanceRef.current) {
+    // Don't initialize if already initialized or currently loading
+    if (unityInstanceRef.current || isLoadingRef.current) {
       return;
     }
 
     // Try to detect the actual Unity build name from the folder
     // First try the folder name, then try common names like "VM", "Build", etc.
     const gameName = gamePath.split("/").pop() || "game";
-    let scripts: HTMLScriptElement[] = [];
+    scriptsRef.current = [];
 
     const loadUnityGame = async () => {
       try {
+        isLoadingRef.current = true;
         setIsLoading(true);
         setError(null);
         setLoadProgress(0);
@@ -81,14 +85,14 @@ export function UnityGamePlayer({
 
         await new Promise<void>((resolve, reject) => {
           loaderScript.onload = () => {
-            setLoadProgress(20);
+            setLoadProgress((prev) => Math.max(prev, 20));
             resolve();
           };
           loaderScript.onerror = () => {
             reject(new Error(`Failed to load Unity loader from ${loaderPath}. Make sure the file exists at: ${gamePath}/Build/VM.loader.js (or ${gamePath}/Build/${gameName}.loader.js)`));
           };
           document.body.appendChild(loaderScript);
-          scripts.push(loaderScript);
+          scriptsRef.current.push(loaderScript);
         });
 
         // Wait for Unity global to be available
@@ -102,7 +106,7 @@ export function UnityGamePlayer({
           throw new Error("Unity loader script did not initialize properly");
         }
 
-        setLoadProgress(40);
+        setLoadProgress((prev) => Math.max(prev, 40));
 
         // Wait a bit to ensure canvas is fully in DOM
         await new Promise((resolve) => setTimeout(resolve, 200));
@@ -215,17 +219,26 @@ export function UnityGamePlayer({
           canvas,
           config,
           (progress: number) => {
-            setLoadProgress(40 + progress * 60);
+            // Use functional update to ensure smooth progress updates
+            setLoadProgress((prev) => {
+              const newProgress = 40 + progress * 60;
+              // Only update if progress increased to prevent glitches
+              return Math.max(prev, Math.min(newProgress, 99));
+            });
           }
         );
 
         unityInstanceRef.current = instance;
-        setIsLoading(false);
         setLoadProgress(100);
+        // Small delay before hiding loading to ensure smooth transition
+        await new Promise((resolve) => setTimeout(resolve, 300));
+        setIsLoading(false);
+        isLoadingRef.current = false;
       } catch (err: any) {
         console.error("Error loading Unity game:", err);
         setError(err.message || `Failed to load game from ${gamePath}. Make sure the Unity WebGL build files are uploaded to the public folder.`);
         setIsLoading(false);
+        isLoadingRef.current = false;
       }
     };
 
@@ -233,6 +246,8 @@ export function UnityGamePlayer({
 
     // Cleanup function
     return () => {
+      isLoadingRef.current = false;
+      
       // Quit Unity instance if it exists
       if (unityInstanceRef.current) {
         try {
@@ -244,12 +259,12 @@ export function UnityGamePlayer({
       }
 
       // Remove all loaded scripts
-      scripts.forEach((script) => {
+      scriptsRef.current.forEach((script) => {
         if (script.parentNode) {
           script.parentNode.removeChild(script);
         }
       });
-      scripts = [];
+      scriptsRef.current = [];
 
       // Restore original querySelector
       if ((document as any).__originalQuerySelector) {
@@ -327,10 +342,14 @@ export function UnityGamePlayer({
                     className="h-full bg-primary rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${loadProgress}%` }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ 
+                      duration: 0.2,
+                      ease: "easeOut"
+                    }}
+                    key={loadProgress}
                   />
                 </div>
-                <p className="text-white/70 text-sm mt-2">{loadProgress}%</p>
+                <p className="text-white/70 text-sm mt-2">{Math.round(loadProgress)}%</p>
               </motion.div>
             </AnimatePresence>
           )}
