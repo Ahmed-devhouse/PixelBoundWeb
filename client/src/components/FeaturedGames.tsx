@@ -23,6 +23,9 @@ const games = [
     googlePlayUrl:
       "https://play.google.com/store/apps/details?id=com.ScrewIt3D.screwmaster.screwit&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id1234567890",
+    showGooglePlay: true, // Set to false to hide Google Play button
+    showAppStore: false, // Set to false to hide App Store button
+    isAvailable: false, // Set to false to hide the entire card
   },
   {
     title: "Screw it 3D",
@@ -33,6 +36,9 @@ const games = [
     googlePlayUrl:
       "https://play.google.com/store/apps/details?id=com.ScrewIt3D.screwmaster.screwit&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id1234567890",
+    showGooglePlay: true,
+    showAppStore: false,
+    isAvailable: true,
   },
   {
     title: "Slime 3D : Hexagon Merge Color",
@@ -43,6 +49,9 @@ const games = [
     googlePlayUrl:
       "https://play.google.com/store/apps/details?id=slime.hexagon.colorsortgames&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id2345678901",
+    showGooglePlay: true,
+    showAppStore: false,
+    isAvailable: true,
   },
   {
     title: "Real Bike Driving City 3D",
@@ -53,6 +62,9 @@ const games = [
     googlePlayUrl:
       "https://play.google.com/store/apps/details?id=com.wodh.real.moto.race.world.racing.world&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id3456789012",
+    showGooglePlay: true,
+    showAppStore: false,
+    isAvailable: true,
   },
   {
     title: "Luminara : Puzzle Adventure",
@@ -63,6 +75,9 @@ const games = [
     googlePlayUrl:
       "https://play.google.com/store/apps/details?id=com.WODH.Luminara.AJourneyofLight&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id4567890123",
+    showGooglePlay: true,
+    showAppStore: true,
+    isAvailable: false,
   },
   {
     title: "Seat Color Sort Jam 3D Puzzle",
@@ -73,6 +88,9 @@ const games = [
     googlePlayUrl:
       "https://play.google.com/store/apps/details?id=com.WODH.SeatColorSortJam&hl=en",
     appStoreUrl: "https://apps.apple.com/app/id4567890123",
+    showGooglePlay: true,
+    showAppStore: false,
+    isAvailable: false,
   },
 ];
 
@@ -131,7 +149,7 @@ export function FeaturedGames() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {games.map((game, index) => (
+          {games.filter(game => game.isAvailable !== false).map((game, index) => (
             <motion.div
               key={game.title}
               variants={cardVariants}
@@ -169,31 +187,37 @@ export function FeaturedGames() {
                   </p>
 
                   {/* Modern Store Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-2 mt-auto">
-                    <a
-                      href={game.googlePlayUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-2 py-2 px-3"
-                    >
-                      <RippleButton className="absolute inset-0" />
-                      <SiGoogleplay className="w-4 h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
-                      <span className="text-xs font-semibold relative z-10">Google Play</span>
-                      <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
-                    </a>
+                  {(game.showGooglePlay !== false || game.showAppStore !== false) && (
+                    <div className={`flex ${game.showGooglePlay !== false && game.showAppStore !== false ? 'flex-col sm:flex-row' : ''} gap-2 mt-auto`}>
+                      {game.showGooglePlay !== false && (
+                        <a
+                          href={game.googlePlayUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-2 py-2 px-3"
+                        >
+                          <RippleButton className="absolute inset-0" />
+                          <SiGoogleplay className="w-4 h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
+                          <span className="text-xs font-semibold relative z-10">Google Play</span>
+                          <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
+                        </a>
+                      )}
 
-                    <a
-                      href={game.appStoreUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-2 py-2 px-3"
-                    >
-                      <RippleButton className="absolute inset-0" />
-                      <SiAppstore className="w-4 h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
-                      <span className="text-xs font-semibold relative z-10">App Store</span>
-                      <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
-                    </a>
-                  </div>
+                      {game.showAppStore !== false && (
+                        <a
+                          href={game.appStoreUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-2 py-2 px-3"
+                        >
+                          <RippleButton className="absolute inset-0" />
+                          <SiAppstore className="w-4 h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
+                          <span className="text-xs font-semibold relative z-10">App Store</span>
+                          <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Subtle glow effect on hover */}
