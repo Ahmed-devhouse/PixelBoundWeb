@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 import { AnimatedCounter } from "./AnimatedCounter";
 
 const stats = [
-  { icon: Gamepad2, value: "25+", label: "Games Shipped" },
-  { icon: Users, value: "3M+", label: "Monthly Players" },
+  { icon: Gamepad2, value: "12+", label: "Games Shipped" },
+  { icon: Users, value: "1M+", label: "Monthly Players" },
   { icon: Trophy, value: "4.7★", label: "Avg. Rating" },
 ];
 
@@ -45,20 +45,18 @@ export function AboutSection() {
             </h2>
             <div className="space-y-5 text-lg text-white/80 leading-relaxed">
               <p>
-                Founded by passionate gamers and industry veterans, Pixel Bound
-                Games has been crafting extraordinary gaming experiences for
-                over a decade.
+                Pixel Bound is a mobile games development studio that specializes
+                in creating engaging mobile games across multiple genres.
               </p>
               <p>
-                Our diverse team of designers, developers, artists, and
-                storytellers combines technical excellence with creative
-                innovation to deliver games that resonate with players
-                worldwide.
+                We develop mobile games in casual, AA casual, puzzle, match-2,
+                and match-3 genres, bringing innovative gameplay experiences to
+                players worldwide.
               </p>
               <p>
-                From indie darlings to AAA blockbusters, we've proven our
-                ability to bring any vision to life, no matter the scope or
-                platform.
+                Our team combines technical excellence with creative innovation
+                to deliver games that captivate and entertain mobile gamers
+                everywhere.
               </p>
             </div>
           </motion.div>

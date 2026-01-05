@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Play, Sparkles } from "lucide-react";
-import { useRef } from "react";
-import { RippleButton } from "./RippleButton";
 import heroBg from "@assets/bg/bg.png";
+import featuredBg from "@assets/games/gamefeature.png";
 
 const fadeIn = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -12,33 +11,17 @@ const fadeIn = (delay = 0) => ({
 });
 
 export function HeroSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section 
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-background via-background/60 to-background"
-    >
-      {/* Background with parallax */}
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-background via-background/60 to-background">
+      {/* Background */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ 
-          backgroundImage: `url(${heroBg})`,
-          y,
-          opacity,
-        }}
+        style={{ backgroundImage: `url(${heroBg})` }}
         initial={{ scale: 1.08 }}
         animate={{ scale: 1 }}
         transition={{ duration: 14, ease: "easeOut" }}
@@ -82,26 +65,20 @@ export function HeroSection() {
             >
               <Button
                 size="lg"
-                className="text-base font-semibold px-6 sm:px-8 shadow-lg shadow-primary/30 relative overflow-hidden group"
+                className="text-base font-semibold px-6 sm:px-8 shadow-lg shadow-primary/30"
                 onClick={() => scrollToSection("games")}
               >
-                <RippleButton className="absolute inset-0" />
-                <span className="relative z-10 flex items-center">
-                  View our games
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </span>
+                View our games
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="text-base font-semibold px-6 sm:px-8 border-white/20 text-white hover:bg-white/10 relative overflow-hidden group"
+                className="text-base font-semibold px-6 sm:px-8 border-white/20 text-white hover:bg-white/10"
                 onClick={() => scrollToSection("contact")}
               >
-                <RippleButton className="absolute inset-0" />
-                <span className="relative z-10 flex items-center">
-                  Start a project
-                  <Play className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-                </span>
+                Start a project
+                <Play className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
 
@@ -111,20 +88,17 @@ export function HeroSection() {
               {...fadeIn(0.4)}
             >
               {[
-                { label: "Games launched", value: "25+" },
-                { label: "Monthly players", value: "3M+" },
+                { label: "Games launched", value: "12+" },
+                { label: "Monthly players", value: "1M+" },
                 { label: "Avg. rating", value: "4.7★" },
               ].map((stat) => (
-                <motion.div
+                <div
                   key={stat.label}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left shadow-inner shadow-white/5 backdrop-blur cursor-pointer"
-                  whileHover={{ scale: 1.05, y: -4, borderColor: "rgba(99, 102, 241, 0.5)" }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left shadow-inner shadow-white/5 backdrop-blur"
                 >
                   <div className="text-xs uppercase tracking-wide text-white/60">{stat.label}</div>
                   <div className="text-2xl font-bold text-white">{stat.value}</div>
-                </motion.div>
+                </div>
               ))}
             </motion.div>
           </div>
@@ -139,8 +113,8 @@ export function HeroSection() {
             <div className="absolute -inset-6 bg-gradient-to-br from-primary/30 via-purple-500/20 to-transparent blur-3xl opacity-70" />
             <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_80px_-20px_rgba(0,0,0,0.6)] overflow-hidden">
               <div
-                className="aspect-[4/3] sm:aspect-[16/10] bg-cover bg-center"
-                style={{ backgroundImage: `url(${heroBg})` }}
+               className="aspect-[4/3] sm:aspect-[16/10] bg-cover bg-center"
+               style={{ backgroundImage: `url(${featuredBg})` }}
               >
                 <div className="h-full w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
               </div>
@@ -148,9 +122,9 @@ export function HeroSection() {
                 <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
                   Featured world
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-white">Viral Match 3D</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white">Screw it 3D</div>
                 <p className="text-white/80 text-sm sm:text-base max-w-xl">
-                  A kinetic, neon-soaked puzzle universe blending strategy with pure flow.
+                  Best sort and match puzzle game! Experience the ultimate puzzle-solving adventure.
                 </p>
                 <div className="flex gap-2">
                   <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 border border-white/10">
@@ -165,7 +139,7 @@ export function HeroSection() {
             <div className="absolute -bottom-10 left-8 hidden sm:block">
               <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur shadow-lg">
                 <div className="text-xs uppercase tracking-wide text-white/70">Now in soft launch</div>
-                <div className="text-lg font-semibold text-white">Climbing Top 50</div>
+                <div className="text-lg font-semibold text-white">Climbing Top 100</div>
               </div>
             </div>
           </motion.div>

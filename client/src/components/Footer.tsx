@@ -34,7 +34,7 @@ export function Footer() {
               <span className="text-white">BOUND</span>
             </div>
             <p className="text-sm text-white/70 leading-relaxed">
-              Crafting unforgettable gaming experiences since 2017
+              Crafting unforgettable gaming experiences since 2021
             </p>
           </motion.div>
 

@@ -82,14 +82,14 @@ export function Header() {
             </motion.button>
           ))}
 
-          {/* 🟣 Viral Match Button */}
+          {/* 🟣 Viral Match Button 
           <MagneticButton
             onClick={handleViralMatchClick}
             className="bg-sky-400 text-white border-2 border-sky-400 hover:bg-sky-500 hover:border-sky-500 rounded-full px-4 py-1 text-sm font-semibold transition shadow-lg shadow-sky-400/30"
           >
             Viral Match
-          </MagneticButton>
-        </nav>
+          </MagneticButton>*/}
+        </nav> 
 
        {/* Right Side Buttons 
         <div className="flex items-center gap-3">

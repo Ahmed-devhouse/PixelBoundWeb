@@ -280,7 +280,7 @@ export function FeaturedGames() {
             >
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/4vMclFwi0bc?si=6q_X1OhYmma-xef9"
+                src="https://www.youtube.com/embed/Hgm5Wr7Cu50?si=DuoPup9vs7XK9Cp6"
                 title="Trailer 3"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
