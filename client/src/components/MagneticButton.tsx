@@ -59,3 +59,4 @@ export function MagneticButton({ children, className = "", onClick, ...props }: 
     </motion.button>
   );
 }
+

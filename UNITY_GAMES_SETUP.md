@@ -166,3 +166,4 @@ If you see CORS errors:
 ---
 
 **Need Help?** Check Unity's [WebGL documentation](https://docs.unity3d.com/Manual/webgl.html) or the browser console for specific errors.
+

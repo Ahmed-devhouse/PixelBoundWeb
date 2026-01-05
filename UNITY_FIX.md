@@ -68,3 +68,4 @@ The code now:
 - ✅ Handles Brotli compressed files (`.br`)
 - ✅ Shows better error messages
 - ✅ Has DialogDescription to fix accessibility warning
+

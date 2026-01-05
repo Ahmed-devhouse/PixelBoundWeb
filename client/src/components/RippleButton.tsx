@@ -64,3 +64,4 @@ export function RippleButton({ className = "" }: RippleButtonProps) {
     </div>
   );
 }
+

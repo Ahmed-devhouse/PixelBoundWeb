@@ -97,3 +97,4 @@ service cloud.firestore {
 - ✅ Shows username and level when logged in
 - ✅ Logout functionality
 - ✅ Graceful error handling if Firebase is not configured
+

@@ -125,3 +125,4 @@ Expected response (success):
 3. Test the health endpoint
 4. Check Supabase dashboard for connection issues
 5. Verify the build completed successfully
+
