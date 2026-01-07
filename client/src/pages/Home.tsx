@@ -51,6 +51,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <FeaturedGames />
+        <TechStack />
         <AboutSection/>
         <ContactSection />
       </main>
