@@ -40,10 +40,10 @@ export function AboutSection() {
               <Sparkles className="h-4 w-4 text-primary" />
               Our Story
             </motion.div>
-            <h2 className="font-display text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 text-white">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 text-white px-4 sm:px-0">
               ABOUT <span className="text-primary">PIXEL BOUND</span>
             </h2>
-            <div className="space-y-5 text-lg text-white/80 leading-relaxed">
+            <div className="space-y-4 sm:space-y-5 text-base sm:text-lg text-white/80 leading-relaxed px-4 sm:px-0">
               <p>
                 Pixel Bound is a mobile games development studio that specializes
                 in creating engaging mobile games across multiple genres.

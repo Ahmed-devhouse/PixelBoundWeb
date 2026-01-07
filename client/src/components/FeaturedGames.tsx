@@ -132,10 +132,10 @@ export function FeaturedGames() {
           className="text-center mb-12 lg:mb-16"
           {...fadeIn(0)}
         >
-          <h2 className="font-display text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 text-white">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 text-white px-4">
             Our <span className="text-primary">GAMES</span>
           </h2>
-          <p className="text-lg lg:text-xl text-white/70 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-white/70 max-w-2xl mx-auto px-4">
             Explore our portfolio of award-winning titles that have captivated
             players worldwide
           </p>
@@ -178,11 +178,11 @@ export function FeaturedGames() {
                 </div>
 
                 {/* Card Content */}
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-2 text-white group-hover:text-primary transition-colors">
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 text-white group-hover:text-primary transition-colors">
                     {game.title}
                   </h3>
-                  <p className="text-sm text-white/70 mb-6 leading-relaxed flex-grow">
+                  <p className="text-xs sm:text-sm text-white/70 mb-4 sm:mb-6 leading-relaxed flex-grow">
                     {game.description}
                   </p>
 
@@ -194,12 +194,12 @@ export function FeaturedGames() {
                           href={game.googlePlayUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-2 py-2 px-3"
+                          className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 sm:px-3"
                         >
                           <RippleButton className="absolute inset-0" />
-                          <SiGoogleplay className="w-4 h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
-                          <span className="text-xs font-semibold relative z-10">Google Play</span>
-                          <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
+                          <SiGoogleplay className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
+                          <span className="text-[10px] sm:text-xs font-semibold relative z-10">Google Play</span>
+                          <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
                         </a>
                       )}
 
@@ -208,12 +208,12 @@ export function FeaturedGames() {
                           href={game.appStoreUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-2 py-2 px-3"
+                          className="relative flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all group/btn rounded-lg overflow-hidden flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 sm:px-3"
                         >
                           <RippleButton className="absolute inset-0" />
-                          <SiAppstore className="w-4 h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
-                          <span className="text-xs font-semibold relative z-10">App Store</span>
-                          <ExternalLink className="w-3 h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
+                          <SiAppstore className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/btn:scale-110 transition-transform relative z-10" />
+                          <span className="text-[10px] sm:text-xs font-semibold relative z-10">App Store</span>
+                          <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-60 group-hover/btn:opacity-100 transition-opacity relative z-10" />
                         </a>
                       )}
                     </div>
@@ -233,18 +233,18 @@ export function FeaturedGames() {
           className="mt-24 text-center relative"
           {...fadeIn(0.2)}
         >
-          <h3 className="font-display text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 text-white">
+          <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 text-white px-4">
             Watch Our <span className="text-primary">Game Trailers</span>
           </h3>
-          <p className="text-lg text-white/70 mb-12 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-white/70 mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
             Dive into the excitement with our featured trailers showcasing the thrill, puzzles, and adventure.
           </p>
 
           {/* 3-Video Showcase */}
-          <div className="relative flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8">
+          <div className="relative flex flex-col md:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 px-4">
             {/* Left Small Video */}
             <motion.div
-              className="w-[85%] md:w-[25%] aspect-video rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] opacity-70 hover:opacity-100 transition-all duration-500"
+              className="w-full sm:w-[85%] md:w-[25%] aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] opacity-70 hover:opacity-100 transition-all duration-500"
               whileHover={{ scale: 1.05, y: -4 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
@@ -259,7 +259,7 @@ export function FeaturedGames() {
 
             {/* Center Main Video */}
             <motion.div
-              className="w-[95%] md:w-[40%] aspect-video rounded-3xl overflow-hidden border-2 border-primary/30 bg-white/5 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(99,102,241,0.4)] z-10"
+              className="w-full sm:w-[95%] md:w-[40%] aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-primary/30 bg-white/5 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(99,102,241,0.4)] z-10"
               whileHover={{ scale: 1.05, y: -4 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
@@ -274,7 +274,7 @@ export function FeaturedGames() {
 
             {/* Right Small Video */}
             <motion.div
-              className="w-[85%] md:w-[25%] aspect-video rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] opacity-70 hover:opacity-100 transition-all duration-500"
+              className="w-full sm:w-[85%] md:w-[25%] aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] opacity-70 hover:opacity-100 transition-all duration-500"
               whileHover={{ scale: 1.05, y: -4 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >

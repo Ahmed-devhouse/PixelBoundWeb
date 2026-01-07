@@ -31,8 +31,8 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(236,72,153,0.16),transparent_30%)]" />
 
       {/* Content */}
-      <div className="relative z-10 w-full container mx-auto px-6 sm:px-8 lg:px-12 py-30 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 w-full container mx-auto px-4 sm:px-6 lg:px-12 py-16 sm:py-24 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left: Headline */}
           <div className="space-y-6 text-center lg:text-left">
             <motion.div {...fadeIn(0)}>
@@ -43,7 +43,7 @@ export function HeroSection() {
             </motion.div>
 
             <motion.h1
-              className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05]"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05]"
               {...fadeIn(0.1)}
             >
               Building cinematic worlds
@@ -52,7 +52,7 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.p
-              className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto lg:mx-0"
+              className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto lg:mx-0 px-4 sm:px-0"
               {...fadeIn(0.2)}
             >
               We design, build, and launch premium game experiences—crafting tight mechanics,
@@ -60,12 +60,12 @@ export function HeroSection() {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4"
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 px-4 sm:px-0"
               {...fadeIn(0.3)}
             >
               <Button
                 size="lg"
-                className="text-base font-semibold px-6 sm:px-8 shadow-lg shadow-primary/30"
+                className="w-full sm:w-auto text-sm sm:text-base font-semibold px-5 sm:px-6 lg:px-8 shadow-lg shadow-primary/30"
                 onClick={() => scrollToSection("games")}
               >
                 View our games
@@ -74,7 +74,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-base font-semibold px-6 sm:px-8 border-white/20 text-white hover:bg-white/10"
+                className="w-full sm:w-auto text-sm sm:text-base font-semibold px-5 sm:px-6 lg:px-8 border-white/20 text-white hover:bg-white/10"
                 onClick={() => scrollToSection("contact")}
               >
                 Start a project
@@ -84,7 +84,7 @@ export function HeroSection() {
 
             {/* Stats */}
             <motion.div
-              className="grid grid-cols-1 xs:grid-cols-3 gap-3 sm:gap-4 max-w-2xl mx-auto lg:mx-0 pt-4"
+              className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4 max-w-2xl mx-auto lg:mx-0 pt-4 px-4 sm:px-0"
               {...fadeIn(0.4)}
             >
               {[
@@ -94,10 +94,10 @@ export function HeroSection() {
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left shadow-inner shadow-white/5 backdrop-blur"
+                  className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-2 sm:px-4 py-2 sm:py-3 text-left shadow-inner shadow-white/5 backdrop-blur"
                 >
-                  <div className="text-xs uppercase tracking-wide text-white/60">{stat.label}</div>
-                  <div className="text-2xl font-bold text-white">{stat.value}</div>
+                  <div className="text-[10px] sm:text-xs uppercase tracking-wide text-white/60 leading-tight">{stat.label}</div>
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white">{stat.value}</div>
                 </div>
               ))}
             </motion.div>
@@ -105,32 +105,32 @@ export function HeroSection() {
 
           {/* Right: Feature spotlight */}
           <motion.div
-            className="relative"
+            className="relative mt-8 lg:mt-0"
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.25 }}
           >
-            <div className="absolute -inset-6 bg-gradient-to-br from-primary/30 via-purple-500/20 to-transparent blur-3xl opacity-70" />
-            <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_80px_-20px_rgba(0,0,0,0.6)] overflow-hidden">
+            <div className="absolute -inset-4 sm:-inset-6 bg-gradient-to-br from-primary/30 via-purple-500/20 to-transparent blur-3xl opacity-70" />
+            <div className="relative rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_80px_-20px_rgba(0,0,0,0.6)] overflow-hidden">
               <div
                className="aspect-[4/3] sm:aspect-[16/10] bg-cover bg-center"
                style={{ backgroundImage: `url(${featuredBg})` }}
               >
                 <div className="h-full w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
               </div>
-              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 gap-3">
-                <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+              <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 lg:p-8 gap-2 sm:gap-3">
+                <div className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
                   Featured world
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-white">Screw it 3D</div>
-                <p className="text-white/80 text-sm sm:text-base max-w-xl">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Screw it 3D</div>
+                <p className="text-white/80 text-xs sm:text-sm lg:text-base max-w-xl">
                   Best sort and match puzzle game! Experience the ultimate puzzle-solving adventure.
                 </p>
-                <div className="flex gap-2">
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 border border-white/10">
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full bg-white/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs text-white/80 border border-white/10">
                     Puzzle / Mobile
                   </span>
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 border border-white/10">
+                  <span className="rounded-full bg-white/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs text-white/80 border border-white/10">
                     Unity
                   </span>
                 </div>

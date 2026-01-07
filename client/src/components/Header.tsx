@@ -78,16 +78,16 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
+      className={`fixed top-2 sm:top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-background/80 shadow-lg backdrop-blur-xl"
           : "bg-background/60 shadow-md backdrop-blur-md"
-      } rounded-full border border-border/40 px-6 py-2 w-[90%] max-w-5xl`}
+      } rounded-full border border-border/40 px-3 sm:px-6 py-2 w-[95%] sm:w-[90%] max-w-5xl`}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between w-full">
         {/* Logo and Title */}
         <div
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer flex-shrink-0"
           onClick={() => {
             if (location !== "/") {
               setLocation("/");
@@ -96,15 +96,15 @@ export function Header() {
             }
           }}
         >
-          <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
-          <div className="font-display text-lg font-bold tracking-tight">
+          <img src={logo} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
+          <div className="font-display text-base sm:text-lg font-bold tracking-tight leading-none">
             <span className="text-primary">PIXEL</span>
             <span className="text-foreground">BOUND</span>
           </div>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
+        {/* Desktop Navigation - Aligned to Right */}
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6 ml-auto">
           {[
             { id: "top", label: "Home" },
             { id: "games", label: "Games" },
@@ -127,74 +127,48 @@ export function Header() {
               />
             </motion.button>
           ))}
-
-          {/* 🟣 Viral Match Button 
-          <MagneticButton
-            onClick={handleViralMatchClick}
-            className="bg-sky-400 text-white border-2 border-sky-400 hover:bg-sky-500 hover:border-sky-500 rounded-full px-4 py-1 text-sm font-semibold transition shadow-lg shadow-sky-400/30"
-          >
-            Viral Match
-          </MagneticButton>*/}
         </nav> 
 
-       {/* Right Side Buttons 
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
+        {/* Right Side Buttons */}
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 md:ml-4">
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="md:hidden h-8 w-8"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <Menu className="h-5 w-5" />
           </Button>
         </div>
-        
-        */}
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="absolute top-full mt-2 left-0 right-0 rounded-2xl border bg-background/95 backdrop-blur-xl shadow-lg p-4 md:hidden">
+        <div className="absolute top-full mt-2 left-0 right-0 rounded-2xl border bg-background/95 backdrop-blur-xl shadow-lg p-4 md:hidden z-50">
           <nav className="flex flex-col gap-2">
-            <button
-              onClick={() => scrollToSection("top")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => scrollToSection("games")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              Games
-            </button>
-            <button
-              onClick={() => scrollToSection("capabilities")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              Career
-            </button>
-            <button
-              onClick={() => scrollToSection("about")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="text-left px-4 py-2 text-sm font-medium hover:bg-accent rounded-md"
-            >
-              Contact
-            </button>
-
-            {/* 🟣 Viral Match Button in Mobile Menu */}
-            <Button
-              className="w-full mt-2 bg-primary text-white hover:bg-primary/90"
-              onClick={handleViralMatchClick}
-            >
-              Viral Match
-            </Button>
+            {[
+              { id: "top", label: "Home" },
+              { id: "games", label: "Games" },
+              { id: "about", label: "About" },
+              { id: "contact", label: "Contact" },
+            ].map((item) => (
+              <motion.button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-4 py-2 text-left rounded-md hover:bg-accent"
+                whileHover={{ x: 4 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                {item.label}
+                <motion.div
+                  className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.button>
+            ))}
           </nav>
         </div>
       )}

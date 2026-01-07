@@ -87,10 +87,10 @@ export function ContactSection() {
             <Sparkles className="h-4 w-4 text-primary" />
             Let's Connect
           </motion.div>
-          <h2 className="font-display text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 text-white">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 text-white px-4">
             GET IN <span className="text-primary">TOUCH</span>
           </h2>
-          <p className="text-lg lg:text-xl text-white/70 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-white/70 max-w-2xl mx-auto px-4">
             Have a project in mind? We'd love to hear from you
           </p>
         </motion.div>
@@ -100,7 +100,7 @@ export function ContactSection() {
             className="lg:col-span-2"
             {...fadeIn(0.1)}
           >
-            <Card className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] p-6 lg:p-8">
+            <Card className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] p-4 sm:p-6 lg:p-8">
               {/* Subtle glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
               
@@ -218,26 +218,26 @@ export function ContactSection() {
           </motion.div>
 
           <motion.div
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
             {...fadeIn(0.2)}
           >
-            <Card className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] p-6">
+            <Card className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] p-4 sm:p-6">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
               
-              <div className="relative z-10 space-y-6">
+              <div className="relative z-10 space-y-4 sm:space-y-6">
                 <motion.div
                   className="flex items-start gap-4 group"
                   whileHover={{ x: 4 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="rounded-xl bg-primary/20 p-3 border border-primary/30">
-                    <Mail className="w-5 h-5 text-primary" />
+                  <div className="rounded-xl bg-primary/20 p-2 sm:p-3 border border-primary/30 flex-shrink-0">
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="font-bold mb-1 text-white">Email</h3>
+                  <div className="min-w-0">
+                    <h3 className="font-bold mb-1 text-white text-sm sm:text-base">Email</h3>
                     <a
                       href="mailto:contact@pixelboundgames.com"
-                      className="text-sm text-white/70 hover:text-primary transition-colors"
+                      className="text-xs sm:text-sm text-white/70 hover:text-primary transition-colors break-words"
                     >
                       contact@pixelboundgames.com
                     </a>
@@ -249,14 +249,14 @@ export function ContactSection() {
                   whileHover={{ x: 4 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="rounded-xl bg-primary/20 p-3 border border-primary/30">
-                    <Phone className="w-5 h-5 text-primary" />
+                  <div className="rounded-xl bg-primary/20 p-2 sm:p-3 border border-primary/30 flex-shrink-0">
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="font-bold mb-1 text-white">Phone</h3>
+                  <div className="min-w-0">
+                    <h3 className="font-bold mb-1 text-white text-sm sm:text-base">Phone</h3>
                     <a
                       href="tel:+447490300705"
-                      className="text-sm text-white/70 hover:text-primary transition-colors"
+                      className="text-xs sm:text-sm text-white/70 hover:text-primary transition-colors"
                     >
                       +447490300705
                     </a>
@@ -268,12 +268,12 @@ export function ContactSection() {
                   whileHover={{ x: 4 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="rounded-xl bg-primary/20 p-3 border border-primary/30">
-                    <MapPin className="w-5 h-5 text-primary" />
+                  <div className="rounded-xl bg-primary/20 p-2 sm:p-3 border border-primary/30 flex-shrink-0">
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="font-bold mb-1 text-white">Location</h3>
-                    <p className="text-sm text-white/70 leading-relaxed">
+                  <div className="min-w-0">
+                    <h3 className="font-bold mb-1 text-white text-sm sm:text-base">Location</h3>
+                    <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
                       Suite C179 4 - 6, Greatorex Street,<br />
                       London, United Kingdom, E1 5NF
                     </p>
@@ -282,12 +282,12 @@ export function ContactSection() {
               </div>
             </Card>
 
-            <Card className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] p-6">
+            <Card className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] p-4 sm:p-6">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
               
               <div className="relative z-10">
-                <h3 className="font-bold mb-4 text-white">Follow Us</h3>
-                <div className="flex gap-3">
+                <h3 className="font-bold mb-3 sm:mb-4 text-white text-sm sm:text-base">Follow Us</h3>
+                <div className="flex gap-2 sm:gap-3">
                   <motion.a
                     href="https://www.youtube.com/@PixelBoundGames"
                     target="_blank"
