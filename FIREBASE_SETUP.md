@@ -98,3 +98,4 @@ service cloud.firestore {
 - ✅ Logout functionality
 - ✅ Graceful error handling if Firebase is not configured
 
+

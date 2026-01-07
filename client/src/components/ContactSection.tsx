@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, MapPin, Send, Sparkles, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Sparkles, CheckCircle2 } from "lucide-react";
 import { SiYoutube } from "react-icons/si";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -240,6 +240,25 @@ export function ContactSection() {
                       className="text-sm text-white/70 hover:text-primary transition-colors"
                     >
                       contact@pixelboundgames.com
+                    </a>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="flex items-start gap-4 group"
+                  whileHover={{ x: 4 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="rounded-xl bg-primary/20 p-3 border border-primary/30">
+                    <Phone className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1 text-white">Phone</h3>
+                    <a
+                      href="tel:+447490300705"
+                      className="text-sm text-white/70 hover:text-primary transition-colors"
+                    >
+                      +447490300705
                     </a>
                   </div>
                 </motion.div>

@@ -4,23 +4,63 @@ import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
+import { useLocation } from "wouter";
 import logo from "@assets/generated_images/favicon.gif";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [location, setLocation] = useLocation();
 
   const scrollToSection = (id: string) => {
-    if (id === "top") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setMobileMenuOpen(false);
-      return;
-    }
-
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setMobileMenuOpen(false);
+    setMobileMenuOpen(false);
+    
+    // Check if we're on the home page
+    const isHomePage = location === "/";
+    
+    if (!isHomePage) {
+      // Navigate to home page with hash for the section
+      if (id === "top") {
+        setLocation("/");
+        // Scroll to top after navigation
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 100);
+      } else {
+        // Navigate to home with hash
+        setLocation(`/#${id}`);
+        
+        // Wait for navigation and DOM to be ready, then scroll
+        const scrollToElement = () => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+            return true;
+          }
+          return false;
+        };
+        
+        // Try immediately
+        setTimeout(() => {
+          if (!scrollToElement()) {
+            // If not found, try again after a longer delay
+            setTimeout(() => {
+              scrollToElement();
+            }, 500);
+          }
+        }, 100);
+      }
+    } else {
+      // Already on home page, just scroll
+      if (id === "top") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -48,7 +88,13 @@ export function Header() {
         {/* Logo and Title */}
         <div
           className="flex items-center gap-2 cursor-pointer"
-          onClick={() => scrollToSection("top")}
+          onClick={() => {
+            if (location !== "/") {
+              setLocation("/");
+            } else {
+              scrollToSection("top");
+            }
+          }}
         >
           <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
           <div className="font-display text-lg font-bold tracking-tight">

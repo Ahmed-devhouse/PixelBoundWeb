@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { SiYoutube } from "react-icons/si";
-import { Mail } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import logo from "@assets/generated_images/favicon.gif";
 
 const fadeIn = (delay = 0) => ({
@@ -73,7 +73,43 @@ export function Footer() {
           </motion.div>
 
           <motion.div {...fadeIn(0.15)}>
-            {/* Empty column for spacing */}
+            <h3 className="font-bold mb-4 text-white">Contact Info</h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="rounded-lg bg-primary/20 p-2 border border-primary/30 mt-0.5">
+                  <MapPin className="w-4 h-4 text-primary" />
+                </div>
+                <div className="text-sm text-white/70 leading-relaxed">
+                  <div className="font-medium text-white mb-1">Office Address:</div>
+                  <div>Suite C179 4 - 6, Greatorex Street,</div>
+                  <div>London, United Kingdom, E1 5NF</div>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg bg-primary/20 p-2 border border-primary/30">
+                  <Phone className="w-4 h-4 text-primary" />
+                </div>
+                <a
+                  href="tel:+447490300705"
+                  className="text-sm text-white/70 hover:text-primary transition-colors"
+                >
+                  +447490300705
+                </a>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg bg-primary/20 p-2 border border-primary/30">
+                  <Mail className="w-4 h-4 text-primary" />
+                </div>
+                <a
+                  href="mailto:contact@pixelboundgames.com"
+                  className="text-sm text-white/70 hover:text-primary transition-colors"
+                >
+                  contact@pixelboundgames.com
+                </a>
+              </div>
+            </div>
           </motion.div>
 
           <motion.div {...fadeIn(0.2)}>
@@ -93,27 +129,37 @@ export function Footer() {
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-red-500/0 to-red-500/0 group-hover/btn:from-red-500/10 group-hover/btn:to-transparent transition-all pointer-events-none" />
               </motion.a>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-primary/20 p-2 border border-primary/30">
-                <Mail className="w-4 h-4 text-primary" />
-              </div>
-              <a
-                href="mailto:contact@pixelboundgames.com"
-                className="text-sm text-white/70 hover:text-primary transition-colors"
-              >
-                contact@pixelboundgames.com
-              </a>
-            </div>
           </motion.div>
         </div>
 
         <motion.div
-          className="pt-8 border-t border-white/10 text-center"
+          className="pt-8 border-t border-white/10"
           {...fadeIn(0.3)}
         >
-          <p className="text-sm text-white/60">
-            &copy; 2025 Pixel Bound Games LTD. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-white/60">
+              &copy; 2025 Pixel Bound Games LTD. All rights reserved.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+              <motion.a
+                href="/privacy-policy"
+                className="text-sm text-white/60 hover:text-primary transition-colors"
+                whileHover={{ x: 2 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                Privacy Policy
+              </motion.a>
+              <span className="text-white/30">|</span>
+              <motion.a
+                href="/terms-and-conditions"
+                className="text-sm text-white/60 hover:text-primary transition-colors"
+                whileHover={{ x: 2 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                Terms and Conditions
+              </motion.a>
+            </div>
+          </div>
         </motion.div>
       </div>
     </footer>

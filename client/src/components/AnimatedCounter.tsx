@@ -79,3 +79,4 @@ export function AnimatedCounter({ value, duration = 2, className = "" }: Animate
   );
 }
 
+
