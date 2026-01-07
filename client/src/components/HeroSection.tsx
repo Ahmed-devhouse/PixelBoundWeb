@@ -36,9 +36,9 @@ export function HeroSection() {
           {/* Left: Headline */}
           <div className="space-y-6 text-center lg:text-left">
             <motion.div {...fadeIn(0)}>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 ring-1 ring-white/10 backdrop-blur">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] ring-1 ring-white/10 backdrop-blur">
                 <Sparkles className="h-4 w-4 text-primary" />
-                PixelBound Games
+                <span className="text-white">Pixel Bound Games.</span> <span className="text-primary"></span>
               </span>
             </motion.div>
 
@@ -46,17 +46,17 @@ export function HeroSection() {
               className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05]"
               {...fadeIn(0.1)}
             >
-              Building cinematic worlds
+              From First Pixel to
               <br />
-              <span className="text-primary">that players remember</span>
+              <span className="text-primary">Global Rank.</span>
             </motion.h1>
 
             <motion.p
               className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto lg:mx-0 px-4 sm:px-0"
               {...fadeIn(0.2)}
             >
-              We design, build, and launch premium game experiences—crafting tight mechanics,
-              striking art, and unforgettable worlds across mobile and beyond.
+              We develop casual, AA casual, and puzzle games for mobile—creating addictive gameplay,
+              polished experiences, and memorable moments that keep players coming back.
             </motion.p>
 
             <motion.div

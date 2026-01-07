@@ -41,7 +41,7 @@ export function AboutSection() {
               Our Story
             </motion.div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 text-white px-4 sm:px-0">
-              ABOUT <span className="text-primary">PIXEL BOUND</span>
+              ABOUT <span className="text-primary">PIXEL BOUND GAMES</span>
             </h2>
             <div className="space-y-4 sm:space-y-5 text-base sm:text-lg text-white/80 leading-relaxed px-4 sm:px-0">
               <p>
