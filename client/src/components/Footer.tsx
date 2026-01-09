@@ -109,6 +109,18 @@ export function Footer() {
                   contact@pixelboundgames.com
                 </a>
               </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg bg-primary/20 p-2 border border-primary/30">
+                  <Mail className="w-4 h-4 text-primary" />
+                </div>
+                <a
+                  href="mailto:saif@pixelboundgames.com"
+                  className="text-sm text-white/70 hover:text-primary transition-colors"
+                >
+                  saif@pixelboundgames.com
+                </a>
+              </div>
             </div>
           </motion.div>
 
