@@ -250,7 +250,7 @@ export function FeaturedGames() {
             >
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/Hgm5Wr7Cu50?si=DuoPup9vs7XK9Cp6"
+                src="https://www.youtube.com/embed/IcnrO45Afcg?si=rmP_tsc2aOflX9Kg"
                 title="Trailer 1"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -265,7 +265,7 @@ export function FeaturedGames() {
             >
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/aS-fkHq0WE8?si=vK6B-kJGQBca6mv7"
+                src="https://www.youtube.com/embed/-RTGaZBeKW0?si=v8x_cK6A2IzdMXx_"
                 title="Main Trailer"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -280,7 +280,7 @@ export function FeaturedGames() {
             >
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/Hgm5Wr7Cu50?si=DuoPup9vs7XK9Cp6"
+                src="https://www.youtube.com/embed/IcnrO45Afcg?si=rmP_tsc2aOflX9Kg"
                 title="Trailer 3"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

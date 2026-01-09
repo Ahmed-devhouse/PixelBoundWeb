@@ -99,3 +99,5 @@ service cloud.firestore {
 - ✅ Graceful error handling if Firebase is not configured
 
 
+
+
