@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
                   Pixel Bound Games LTD ("we", "our", or "us") is the Data Controller for the personal data we collect through our mobile games and services. We are committed to protecting your privacy in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
                 </p>
                 <p className="mt-4">
-                  <strong>Company Details:</strong> Pixel Bound Games LTD Suite C179 4 - 6, Greatorex Street, London, E1 5NF Email: <a href="mailto:contact@pixelboundgames.com" className="text-primary hover:underline">contact@pixelboundgames.com</a>
+                  <strong>Company Details:</strong> Pixel Bound Games LTD Suite C179 4 - 6, Greatorex Street, London, E1 5NF Email: <a href="mailto:contact@pixelboundgames.com" className="text-primary hover:underline">contact@pixelboundgames.com</a> or <a href="mailto:saif@pixelboundgames.com" className="text-primary hover:underline">saif@pixelboundgames.com</a>
                 </p>
               </section>
 
@@ -136,7 +136,7 @@ export default function PrivacyPolicy() {
                   For any privacy-related queries or to exercise your rights, contact our Data Privacy Lead:
                 </p>
                 <div className="mt-4 space-y-2 text-white/80">
-                  <p>Email: <a href="mailto:contact@pixelboundgames.com" className="text-primary hover:underline">contact@pixelboundgames.com</a></p>
+                  <p>Email: <a href="mailto:contact@pixelboundgames.com" className="text-primary hover:underline">contact@pixelboundgames.com</a> or <a href="mailto:saif@pixelboundgames.com" className="text-primary hover:underline">saif@pixelboundgames.com</a></p>
                   <p>Address: Suite C179 4 - 6, Greatorex Street, London, E1 5NF</p>
                 </div>
               </section>

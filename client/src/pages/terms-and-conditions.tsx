@@ -52,7 +52,7 @@ export default function TermsAndConditions() {
                 <ul className="list-disc pl-6 space-y-2 mt-2">
                   <li>Provide accurate and current information.</li>
                   <li>Keep your password secure; you are responsible for all activity on your account.</li>
-                  <li>Notify us immediately at <a href="mailto:contact@pixelboundgames.com" className="text-primary hover:underline">contact@pixelboundgames.com</a> of any unauthorized access.</li>
+                  <li>Notify us immediately at <a href="mailto:contact@pixelboundgames.com" className="text-primary hover:underline">contact@pixelboundgames.com</a> or <a href="mailto:saif@pixelboundgames.com" className="text-primary hover:underline">saif@pixelboundgames.com</a> of any unauthorized access.</li>
                 </ul>
                 <p className="mt-4">
                   We reserve the right to suspend accounts involved in fraudulent or illegal activity.
@@ -160,7 +160,7 @@ export default function TermsAndConditions() {
                   <p><strong>Pixel Bound Games LTD</strong></p>
                   <p>Suite C179 4 - 6, Greatorex Street</p>
                   <p>London, United Kingdom, E1 5NF</p>
-                  <p>Email: <a href="mailto:contact@pixelboundgames.com" className="text-primary hover:underline">contact@pixelboundgames.com</a></p>
+                  <p>Email: <a href="mailto:contact@pixelboundgames.com" className="text-primary hover:underline">contact@pixelboundgames.com</a> or <a href="mailto:saif@pixelboundgames.com" className="text-primary hover:underline">saif@pixelboundgames.com</a></p>
                   <p>Phone: <a href="tel:+447490300705" className="text-primary hover:underline">+447490300705</a></p>
                 </div>
               </section>
